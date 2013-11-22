@@ -1,0 +1,48 @@
+{% extends 'notifications/base.html' %}
+{% from 'helpers.html' import table_header, table_footer %}
+
+{% block body %}
+  <p>
+    <h2>{{ 'notifications.asset_was_recalled'|t }}</h2>
+  </p>
+  {{ table_header(['details'], use_index=false, colspan=2) }}
+  <tr>
+    <th>{{ 'buys.record_user'|t }}</th>
+    <td>{{ idle.login }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'transfers.handle_user'|t }}</th><td>{{ idle.user }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'idles.idle_date'|t }}</th><td>{{ idle.idle_date }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'idles.recall_date'|t }}</th><td>{{ idle.date }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'name'|t }}</th><td>{{ idle.asset.name }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'equipment.flex_id'|t }}</th><td>{{ idle.asset.flex_id }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'equipment.fixed_id'|t }}</th><td>{{ idle.asset.fixed_id }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'sn'|t }}</th><td>{{ idle.asset.sn }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'model'|t }}</th><td>{{ idle.asset.model }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'status'|t }}</th>
+    <td>{{ (idle.asset.is_good and 'good' or 'bad')|t }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'description'|t }}</th><td>{{ idle.asset.desc }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'remark'|t }}</th><td>{{ idle.remark }}</td>
+  </tr>
+  {{ table_footer() }}
+{% endblock %}

@@ -1,0 +1,234 @@
+system_name: "FMC & PDG 资产管理"
+support_info: "本系统由 {support} 负责维护"
+server_under_serious_situation: 服务器程序出现严重问题
+success: "成功!"
+warn: "警告!"
+error: "错误!"
+all: 所有
+please_select: "请选择..."
+
+home: 首页
+about: 关于
+help: 帮助
+contact: 联系
+other: 其他
+remark: 备注
+name: 名称
+price: 价格
+date: 日期
+qty: 数量
+information: 信息
+
+please_login: 请登录
+login: 登录
+logged_in_as: "当前用户 "
+logout: 登出
+signup: 注册
+user_login: 用户登录
+case_not_sensitive: 不分大小写
+signup_successfully: 注册成功
+change_language: "语言 (Language)"
+
+kind: 类型
+cancel: 取消
+submit: 提交
+ok: 确定
+back: 返回
+good: 好
+bad: 坏
+status: 状态
+"yes": "是"
+"no": "否"
+
+# actions
+action: 操作
+new: 新建
+show: 显示
+add: 添加
+create: 新建
+edit: 编辑
+update: 更新
+delete: 删除
+remove: 删除
+destroy: 删除
+created_successfully: 创建成功
+updated_successfully: 更新成功
+destroyed_successfully: 删除成功
+record_not_found: 记录未找到
+are_you_sure_to_delete: "确定删除吗(不可恢复)?"
+permission_denied: 没有权限
+details: 详情
+
+segment: 事业部
+segments: 事业部
+department: 部门
+departments: 部门
+project: 项目
+projects: 项目
+source: 来源
+sources: 来源
+source_remark: 来源说明
+supplier: 供应商
+manufacturer: 制造商
+model: 型号
+sn: 序列号
+pn: "PN#"
+line: 线别
+location: 位置
+description: 描述
+id_no: "ID#"
+
+phone: 座机
+gsm: 手机
+short_no: 短号
+email: 邮箱
+badge_id: 工号
+nick_name: 昵称
+role: 角色
+
+last_update: 最后更新
+
+store: 仓库
+outside: 库外
+history: 历史
+not_found: 未找到
+in_store: 入库
+out_store: 出库
+
+transfers: "转入/出"
+assets: 资产
+scraps: 报废
+idle: 闲置
+scrap: 报废
+transfer: 转出
+
+page_lang: 语言
+login_name: 登录名
+password: 密码
+password_again: 确认密码
+password_not_match: 密码不匹配
+
+# views
+users: 用户
+user_list: 用户列表
+permissions: 权限
+iorecords: "出/入库历史"
+store_in_out: "出/入库"
+incomings: 货仓收货
+equipment: 设备
+spareparts: 备品
+sparepart: 备品
+calibrations: 校验
+resources: 资源
+other_resource: 其他资源
+operations: 资产操作
+
+# validations
+"This field is required.": 不能为空
+"Not a valid choice": 不能为空
+"Not a valid integer value": 不是整数
+"Not a valid float value": 请输入正确的价格
+"Number must be greater than 0.": 不能为负数
+already_exists: 已经存在
+"is already taken": 已经存在
+
+cannot_be_removed: 不能删除
+# pagination
+prev_label: "&laquo;"
+next_label: "&raquo;"
+display_msg: "共 <b>{total}</b> 条记录, 当前显示 <b>{start} - {end}</b>"
+search_msg: "找到 <b>{found}</b> 条记录, 当前显示 <b>{start} - {end}</b>"
+# , 共 <b>{total}</b> 条记录
+
+no_records_found: 未找到记录，请更改查询条件
+search: 搜索
+reset: 重置
+enter_something_to_search: "快速查询..."
+
+selectable_header: "<h4>可选项</h4>"
+selected_header: "<h4>已选项</h4>"
+
+week: 周
+prev_month: 上月
+next_month: 下月
+
+
+invalid_date: 日期不合法
+invalid_time: 时间不对
+good_qty: 良品数
+bad_qty: 不良品数
+
+owner: 责任人
+all_or_none: "全选/不选"
+export: 导出
+no_field_was_selected: 请至少选择一项
+handle_user: 经手人
+
+keyword: 关键字
+start_date: 开始日期
+end_date: 结束日期
+query: 查询
+
+# 导入相关
+import: 导入
+please_select_a_file: 请选择文件
+excel_file: Excel 文件
+update_if_exist: 如果存在就更新
+start_import: 开始导入
+please_follow_below_format: 请遵循以下格式
+download_template_file: 下载模板文件
+notice: 注意
+only_first_sheet_will_be_imported: 仅导入第一个 Sheet
+
+invalid_row: 格式非法
+can_not_be_empty: 不能为空
+flex_id: 伟创力编号
+fixed_id: 固定资产编号
+error_occurred: 有错误发生
+imported_result: 导入结果
+only_excel_is_allowed: 只能导入 Excel 文件
+invalid_format: 格式非法
+imported_success: 导入成功
+
+project_not_found: "行 {row}: 项目 (<b>{pj}</b>) <span class='label label-important'>不存在</span>"
+require_with: "行 {row}: [<b>{name}</b>] <span class='label label-important'>为空</span>"
+dup_with: "行 {row}: {name} (<b>{val}</b>) 与行 {lines}<span class='label label-important'>重复</span>"
+exists_with: "行 {row}: {name} (<b>{val}</b>) <span class='label label-important'>已经存在</span>"
+require_string: "行 {row}: {name} (<b>{val}</b>) <span class='label label-important'>不是字符串</span>"
+require_int: "行 {row}: {name} (<b>{val}</b>) <span class='label label-important'>不是一个整数</span>"
+require_float: "行 {row}: {name} (<b>{val}</b>) <span class='label label-important'>不是一个数值</span>"
+require_auth: "行 {row}: 对 [部门(<b>{dp}</b>), 项目(<b>{pj}</b>)] <span class='label label-important'>没有权限</span>"
+sparepart_not_exist: "行 {row}: 备品 [<b>{code}</b>] <span class='label label-important'>不存在</span>"
+sparepart_exists: "行 {row}: 备品 [<b>{code}</b>] <span class='label label-important'>已经存在</span>"
+you_have_permissions_on: "你现有的权限 (* 代表所有, 大小写有关)"
+you_have_all_permissions: 你有所有的权限
+
+# 文件上传
+picture: 图片
+pictures: 图片
+selected_file: 选择的文件
+already_selected: 已经选择过了
+upload_image_title: "名称: {name}&#10;大小: {size} 字节&#10;尺寸: {width} x {height}"
+
+you_are_using_msie: "IE会导致一些功能无法使用, 请使用 <a href='{href}'><strong>Google浏览器</strong></a>"
+
+# remarks on operations
+about_user_roles: "&raquo; 关于用户角色"
+about_asset_leader: "> <strong>资产管理员</strong> 能够管理用户帐号及权限, 管理项目. 如果你需要某些权限, 就可以找他们帮忙."
+about_asset_user: "> <strong>资产用户</strong> 能够管理设备, 更新备品数量(盘点后会用到), 指定伟创力编号, 转入/出资产, 记录报废, 闲置设备"
+about_store_user: '> <strong>仓库用户</strong> 可以收货, 物品的出/入库, 导入备品'
+about_project_leader: '> <strong>项目管理员</strong> 可以对仓库收到的物品签收或拒收.'
+
+about_equipment: "&raquo; 关于设备"
+about_equipment_desc: "根据设备记录可以追踪到设备的去向."
+
+about_spareparts: "&raquo; 关于备品"
+about_spareparts_desc: "根据备品记录可以较准确地知道是否库存不足, 备品的去向等"
+
+about_store_in_out: "&raquo; 关于出/入仓"
+about_store_in_out_desc: "资产的最新状态, 库存情况以此为基础"
+
+about_incomings: "&raquo; 关于物品收货"
+about_incomings_desc: "> 对于备品可以增加库存<br />> 对于设备则可以引入新设备"
+
+only_what_user_can_manage_this_page: "只有 <span class='label label-info'>{user}</span> 可以对本页进行管理"

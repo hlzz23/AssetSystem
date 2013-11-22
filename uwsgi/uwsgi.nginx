@@ -1,0 +1,19 @@
+server {
+    listen 80;
+    server_name localhost;
+    access_log /var/log/nginx/flexasset.log;
+    error_log /var/log/nginx/flexasset.error warn;
+
+    location / { try_files $uri @flexasset; }
+    location @flexasset {
+        include uwsgi_params;
+        uwsgi_pass unix:/tmp/flexasset-uwsgi.sock;
+    }
+    location /static/ {
+        root /var/www/flexasset/assetapp;
+        if (-f $request_filename) {
+            rewrite ^/static/(.*)$ /static/$1 break;
+        }
+    }
+
+}

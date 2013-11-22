@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# kill -INT `cat /tmp/flexasset.pid`
+uwsgi --stop /tmp/flexasset.pid

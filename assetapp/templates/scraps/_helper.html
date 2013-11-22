@@ -1,0 +1,107 @@
+{% from 'helpers.html' import table_header, table_footer %}
+{% macro show_equipment(ep) %}
+  <div>
+    {{ table_header(['.equipment_details'], border=false, use_index=false) }}
+    <tr>
+      <th>{{ 'department'|t }}</th><td id="edepartment">{{ ep.department }}</td>
+      <th>{{ 'project'|t }}</th><td id="eproject">{{ ep.project }}</td>
+    </tr>
+    <tr>
+      <th>{{ 'source'|t }}</th><td id="esource">{{ ep.source }}</td>
+      <th>{{ 'source_remark'|t }}</th><td id="esr">{{ ep.sr }}</td>
+    </tr>
+    <tr>
+      <th>{{ 'supplier'|t }}</th><td id="esupplier">{{ ep.supplier }}</td>
+      <th>{{ 'manufacturer'|t }}</th><td id="emf">{{ ep.mf }}</td>
+    </tr>
+    <tr>
+      <th>{{ 'name'|t }}</th><td id="ename">{{ ep.name }}</td>
+      <th>{{ 'description'|t }}</th><td id="edesc">{{ ep.desc }}</td>
+    </tr>
+    <tr>
+      <th>{{ 'equipment.flex_id'|t }}</th><td id="eflex_id">{{ ep.flex_id }}</td>
+      <th>{{ 'sn'|t }}</th><td id="esn">{{ ep.sn }}</td>
+    </tr>
+    <tr>
+      <th>{{ 'equipment.fixed_id'|t }}</th>
+      <td id="efixed_id">{{ ep.fixed_id }}</td>
+      <th>{{ 'equipment.prod_date'|t }}</th>
+      <td id="eprod_date">{{ ep.prod_date }}</td>
+    </tr>
+    <tr>
+      <th>{{ 'buys.track_no'|t }}</th><td id="etn">{{ ep.tn }}</td>
+      <th>{{ 'buys.custom_no'|t }}</th><td id="ecn">{{ ep.cn }}</td>
+    </tr>
+    <tr>
+      <th>{{ 'owner'|t }}</th><td id="eowner">{{ ep.owner }}</td>
+      <th>{{ 'model'|t }}</th><td id="emodel">{{ ep.model }}</td>
+    </tr>
+    <tr>
+      <th>{{ 'price'|t }}</th><td id="eprice">{{ ep.price }}</td>
+      <th>{{ 'status'|t }}</th>
+      <td id="estatus">{{ ep.get_status|t }}</td>
+    </tr>
+    <tr>
+      <th>{{ 'location'|t }}</th><td id="elocation">{{ ep.location }}</td>
+      <th>{{ 'line'|t }}</th><td id="eline">{{ ep.line }}</td>
+    </tr>
+    <tr>
+      <th>{{ 'equipment.warranty_start'|t }}</th><td id="ews">{{ ep.ws }}</td>
+      <th>{{ 'equipment.warranty_end'|t }}</th><td id="ewe">{{ ep.we }}</td>
+    </tr>
+    <tr>
+      <th>{{ 'equipment.is_good'|t }}</th>
+      <td id="eis_good">{{ (ep and ep.is_good|bool_msg('good', 'bad')) or '' }}</td>
+      <th>{{ 'equipment.is_instore'|t }}</th>
+      <td id="eis_instore">{{ (ep and ep.is_instore|bool_msg) or '' }}</td>
+    </tr>
+    <tr>
+      <th>{{ 'equipment.req_user'|t }}</th>
+      <td id="ereq_user">{{ ep.req_user }}</td>
+      <th>{{ 'equipment.req_date'|t }}</th>
+      <td id="ereq_date">{{ ep.req_date }}</td>
+    </tr>
+    {{ table_footer() }}
+  </div>
+{% endmacro %}
+
+{% macro js_show_equipment(id='flex_id', url='scraps.show_equipment') %}
+  $('#{{ id }}').keyup(function(){
+    $.ajax({
+      url: "{{ url_for(url) }}",
+      type: "GET",
+      cache: false,
+      dataType: "json",
+      data: {"{{ id }}": $(this).val()},
+      success: function(data){
+        $('#edepartment').text(data.department);
+        $('#eproject').text(data.project);
+        $('#esource').text(data.source);
+        $('#esr').text(data.sr);
+        $('#esupplier').text(data.supplier);
+        $('#emf').text(data.mf);
+        $('#ename').text(data.name);
+        $('#edesc').text(data.desc);
+        $('#eflex_id').text(data.flex_id);
+        $('#esn').text(data.sn);
+        $('#efixed_id').text(data.fixed_id);
+        $('#eprod_date').text(data.prod_date);
+        $('#edepartment').text(data.department);
+        $('#etn').text(data.tn);
+        $('#ecn').text(data.cn);
+        $('#eowner').text(data.owner);
+        $('#emodel').text(data.model);
+        $('#eprice').text(data.price);
+        $('#estatus').text(data.status);
+        $('#elocation').text(data.location);
+        $('#eline').text(data.line);
+        $('#ews').text(data.ws);
+        $('#ewe').text(data.we);
+        $('#eis_good').text(data.is_good);
+        $('#eis_instore').text(data.is_instore);
+        $('#ereq_user').text(data.req_user);
+        $('#ereq_date').text(data.req_date);
+      }
+    });
+  })
+{% endmacro %}

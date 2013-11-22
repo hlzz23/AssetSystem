@@ -1,0 +1,24 @@
+accepted_the_incoming: Store incoming was confirmed
+rejected_the_incoming: Store incoming was rejected
+incoming_arrived: New asset arrived
+please_click_to_confirm: Please Click Here To Confirm
+
+assigned_the_equipment: Assign the Flex ID
+rejected_assign_the_equipment: Refused to assign the Flex ID
+
+equipment_was_in: Equipment Back To Store
+equipment_was_out: Equipment Out Of Store
+
+sparepart_was_in: Sparepart Back To Store
+sparepart_was_out: Sparepart Out Of Store
+
+equipment_transfer_in: Equipment Transfer In
+equipment_transfer_out: Equipment Transfer Out
+
+sparepart_transfer_in: Sparepart Transfer In
+sparepart_transfer_out: Sparepart Transfer Out
+
+asset_was_idled: Asset Was Set To IDLE Status
+asset_was_recalled: Asset IDLE Status Was Cleared
+
+equipment_was_scraped: Equipment Was Scraped

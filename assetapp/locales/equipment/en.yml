@@ -1,0 +1,38 @@
+
+flex_id: "Flex ID#"
+fixed_id: "Fixed ID#"
+
+warranty_start: Warranty Start
+warranty_end: Warranty End
+
+source_text: Enter Source
+name: Name
+
+equipment_list: Equipment List
+add_equipment: Add Equipment
+edit_equipment: Edit Equipment
+update_equipment: Update Equipment Information
+equipment_details: Equipment Details
+
+is_good: Good or Bad?
+is_instore: Is in store?
+instore: In Store
+outstore: Outside
+
+req_user: Request User
+req_date: Request Date
+req_remark: Request Remark
+
+need_cal: Need Calibration
+need_pm: Need PM
+
+prod_date: Production Date
+fa_equipment: FA Equipment
+faed_equipment: FA Equipment
+scraped_equipment: Scraped
+transfered_equipment: Transfered Out
+idleed_equipment: IDLE
+
+export_equipment: Export Equipment List
+change_status: Change Status
+import_equipment: Import Equipment List

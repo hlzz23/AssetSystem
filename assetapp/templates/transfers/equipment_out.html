@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+{% from 'transfers/_form.html' import render_equipment_form %}
+
+{% block title %}
+  {{ '.equipment_out'|t }}
+{% endblock %}
+
+{% block body %}
+  <p>
+    {{ primary_link(url_for('.index'), text='back', size='large') }}
+  </p>
+  {{ render_equipment_form(form, '.equipment_out', kind='out') }}
+{% endblock %}
+
+{% block js %}
+  {{ js_date(['date']) }}
+  {{ js_focus('flex_id') }}
+  {{ js_autocomplete(id='flex_id', kind='0') }}
+{% endblock %}

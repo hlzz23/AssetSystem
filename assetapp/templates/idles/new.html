@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+{% from 'scraps/_helper.html' import show_equipment, js_show_equipment %}
+
+{% block title %}
+  {{ '.idle_equipment'|t }}
+{% endblock %}
+
+{% block body %}
+  <p>
+    {{ primary_link(url_for('.index'), text='back', size='large') }}
+  </p>
+  {{ form_header(form, legend='.idle_equipment') }}
+  {{ form_field(form.flex_id) }}
+  {{ form_field(form.user) }}
+  {{ form_field(form.date, name='.idle_date') }}
+  {{ form_field(form.remark) }}
+  {{ submit_field(submit='.idle', url=url_for('.index')) }}
+  {{ form_footer() }}
+{#  {{ show_equipment(ep) }} #}
+{% endblock %}
+
+{% block js %}
+  {% if not form.flex_id.data or form.flex_id.errors %}
+    {{ js_focus('flex_id') }}
+  {% endif %}
+  {{ js_date(['date']) }}
+  {{ js_autocomplete(id='flex_id', kind='0') }}
+{% endblock %}

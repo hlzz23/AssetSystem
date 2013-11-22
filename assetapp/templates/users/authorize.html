@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  {{ '.authorize'|t }}
+{% endblock %}
+
+{% block body %}
+  <p>
+    {{ primary_link(url_for('.index'), text='back', size='large') }}
+  </p>
+  {{ form_header(form, legend='%s (%s)'|format('.authorize'|t, user.nick_name)) }}
+  {{ form_field(form.groups, class=" multiselect", required=1) }}
+  {{ submit_field(submit='.authorize'|t, url=url_for('.index')) }}
+  {{ form_footer() }}
+{% endblock %}
+
+{% block js %}
+  $(function(){
+    $('.multiselect').multiSelect(
+      {selectableHeader: "{{ 'selectable_header'|t|safe }}",
+        selectedHeader: "{{ 'selected_header'|t|safe }}",
+      });
+  });
+{% endblock %}

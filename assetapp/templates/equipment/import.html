@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  {{ '.import_equipment'|t }}
+{% endblock %}
+
+{% block body %}
+  <p>
+    {{ primary_link(url_for('.index'), text='back', size='large') }}
+  </p>
+  {{ import_form(form, legend='.import_equipment', url=url_for('.index'), template='equipment.xls', image='equipment.png', checked=checked) }}
+
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  {{ 'details'|t }}
+{% endblock %}
+
+{% block body %}
+  <p>
+    {{ primary_link(url_for('.index'), text='.transfer_list', size='large') }}
+  </p>
+  <hr />
+  {{ table_header(['details'], use_index=false, border=false, colspan=4) }}
+  <tr>
+    <th>{{ 'kind'|t }}</th><td>{{ tf.kind_name|t }}</td>
+    <th>
+      {% if tf.is_in %}{{ '.in_date'|t }}
+      {% else %}{{ '.out_date'|t }}
+      {% endif %}
+    </th>
+    <td>{{ tf.date }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'users.store_user'|t }}</th>
+    <td>{{ tf.login }} ({{ tf.login_id }})</td>
+    <th>{{ 'handle_user'|t }}</th><td>{{ tf.user }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'department'|t }}</th><td>{{ tf.department }}</td>
+    <th>{{ 'project'|t }}</th><td>{{ tf.project }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'name'|t }}</th><td>{{ tf.name }}</td>
+    <th>{{ 'model'|t }}</th><td>{{ tf.model }}</td>
+  </tr>
+  <tr>
+    <th>{{ '.from_where'|t }}</th><td>{{ tf.from_where }}</td>
+    <th>{{ '.to_where'|t }}</th><td>{{ tf.to_where }}</td>
+  </tr>
+  {% if tf.is_sparepart %}
+    <tr>
+      <th>{{ 'spareparts.code'|t }}</th><td>{{ tf.asset.code }}</td>
+      <th>{{ 'description'|t }}</th><td>{{ tf.sparepart.desc }}</td>
+    </tr>
+    <tr>
+      <th>{{ 'good_qty'|t }}</th><td>{{ span_badge(tf.good_qty, 'success') }}</td>
+      <th>{{ 'bad_qty'|t }}</th><td>{{ span_badge(tf.bad_qty, 'important') }}</td>
+    </tr>
+  {% else %}
+    <tr>
+      <th>{{ 'equipment.flex_id'|t }}</th><td>{{ tf.asset.flex_id }}</td>
+      <th>{{ 'sn'|t }}</th><td>{{ tf.asset.sn }}</td>
+    </tr>
+    <tr>
+      <th>{{ 'equipment.fixed_id'|t }}</th><td>{{ tf.asset.fixed_id }}</td>
+      <th>{{ 'equipment.prod_date'|t }}</th><td>{{ tf.asset.prod_date }}</td>
+    </tr>
+    <tr>
+      <th>{{ 'buys.track_no'|t }}</th><td>{{ tf.asset.tn }}</td>
+      <th>{{ 'buys.custom_no'|t }}</th><td>{{ tf.asset.cn }}</td>
+    </tr>
+    <tr>
+      <th>{{ 'status'|t }}</th>
+      <td colspan="3">{{ tf.asset.is_good|bool_msg('good', 'bad') }}</td>
+    </tr>
+  {% endif %}
+  <tr>
+    <th>{{ 'remark'|t }}</th><td colspan="3">{{ tf.remark }}</td>
+  </tr>
+  {{ table_footer() }}
+{% endblock %}

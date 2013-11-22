@@ -1,0 +1,56 @@
+{% from 'helpers.html' import primary_link, success_link, danger_link, warning_link, form_field %}
+{% macro render_links(g, kind=none) %}
+  <p>
+    {% if kind %}
+      {{ primary_link(url_for('.index', kind=kind), text='.%sstore_list'|format(kind), size='large') }}
+    {% else %}
+      {{ primary_link(url_for('.index'), text='.iohistory', size='large') }}
+    {% endif %}
+    {% if g.user %}
+      {% if kind == 'in' %}
+        {{ success_link(url_for('.instore', kind='equipment'), text='.equipment_in', size='large') }}
+        {{ success_link(url_for('.instore', kind='sparepart'), text='.sparepart_in', size='large') }}
+      {% elif kind == 'out' %}
+        {{ danger_link(url_for('.outstore', kind='equipment'), text='.equipment_out', size='large') }}
+        {{ danger_link(url_for('.outstore', kind='sparepart'), text='.sparepart_out', size='large') }}
+      {% else %}
+        {{ success_link(url_for('.instore', kind='equipment'), text='.equipment_in', size='large') }}
+        {{ success_link(url_for('.instore', kind='sparepart'), text='.sparepart_in', size='large') }}
+        {{ danger_link(url_for('.outstore', kind='equipment'), text='.equipment_out', size='large') }}
+        {{ danger_link(url_for('.outstore', kind='sparepart'), text='.sparepart_out', size='large') }}
+      {% endif %}
+    {% endif %}
+    {{ warning_link(url_for('.export'), text='export', size='large') }}
+  </p>
+{% endmacro %}
+
+{% macro show_desc(id1='flex_id', id2='equip-desc', url='iohistory.js_equip_desc', kind='in') %}
+  $('#{{ id1 }}').keyup(function(){
+    $.ajax({
+      url: "{{ url_for(url) }}",
+      type: "GET",
+      cache: false,
+      dataType: "json",
+      data: {text: $(this).val(), kind: "{{ kind }}"},
+      success: function(data){
+        $('#{{ id2 }}').text(data.desc);
+        if(data.error){
+          $('#{{ id2 }}').removeClass("label label-info");
+          $('#{{ id2 }}').addClass("label label-important");
+        }else{
+          $('#{{ id2 }}').removeClass("label label-important");
+          if(data.desc){
+            $('#{{ id2 }}').addClass("label label-info");
+          }else{
+            $('#{{ id2 }}').removeClass("label label-info");
+          }
+        }
+        if(data.error){
+          $('#{{ id2 }}-group').addClass('error');
+        }else{
+          $('#{{ id2 }}-group').removeClass('error');
+        }
+      }
+    });
+  })
+{% endmacro %}

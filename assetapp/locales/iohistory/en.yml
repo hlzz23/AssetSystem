@@ -1,0 +1,66 @@
+to_project: To Project
+to_where: To Where
+back_user: Back User
+hard_copy: Hard Copy
+
+out_user: Out User
+in_user: Back User
+out_date: Out Date
+in_date: Back Date
+equipment_out: Equipment Out
+equipment_in: Equipment In
+sparepart_out: Sparepart Out
+sparepart_in: Sparepart In
+enter_code: Or Enter
+
+outstore_list: Out History
+instore_list: In History
+history_list: In/Out History
+
+date: Date
+keyid: "ID#"
+io_date: I/O Date
+io_time: Time
+from: From...
+to: To...
+back_location: Back To Location
+
+equipment_out_successfully: Equipment out of store successfully
+equipment_in_successfully: Equipment back to store successfully
+sparepart_out_successfully: Sparepart out of store successfully
+sparepart_in_successfully: Sparepart back to store successfully
+
+was_borrowed_from: was brought out by <span class="label">{to}</span> from <span class="label">{from}</span>
+was_returned_by: was returned back to <span class="label">{to}</span> by <span class="label">{from}</span>
+
+out_to_where: to <span class="label label-inverse">{project}, {where}, {line}</span>
+return_to_where: at <span class="label label-inverse">{location}</span>
+
+iohistory: In/Out History
+iohistory_list: In/Out History
+iohistory_details: In/Out details
+event: Event
+
+direction: Direction
+destination: Destination
+"Store to outside": "Store To Outside"
+"Outside to store": "Outside To Store"
+from_to: "From ... To ..."
+not_in_store: Not in store
+already_in_store: Already in store
+
+instore_list: In Store History
+outstore_list: Out Store History
+export_iohistory: Export In/Out History
+to_line: To Line
+item_code: "ID#"
+into_store: Into Store
+out_store: Out Store
+not_enough: QTY not enough
+
+choose_time: Choose Time
+current_time: Current Time
+finish: Finish
+time: Time
+hour: Hour
+minute: Minute

@@ -1,0 +1,112 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  {{ '.equipment_list'|t }}
+{% endblock %}
+
+{% block body %}
+  <div class="alert alert-info">
+    {{ 'only_what_user_can_manage_this_page'|t(user='users.asset_user'|t)|safe }}
+  </div>
+  <p>
+    {{ success_link(url_for('.index'), text='.equipment_list', size='large') }}
+    {% if g.user.can_add_equipment %}
+      {{ warning_link(url_for('.new'), text='.add_equipment', size='large') }}
+    {% endif %}
+
+    {% for st in ('fa', 'scrap', 'transfer', 'idle') %}
+      {% if status == st %}
+        {{ inverse_link(url_for('.index', status=status), text='.%sed_equipment'|format(status), size='large') }}
+      {% else %}
+        {{ primary_link(url_for('.index', status=st), text='.%sed_equipment'|format(st), size='large') }}
+      {% endif %}
+    {% endfor %}
+    {{ success_link(url_for('.import_equipment'), text='import', size='large') }}
+    {{ warning_link(url_for('.export'), text='export', size='large') }}
+  </p>
+  <p>
+    <form method="get">
+      <table width="100%">
+        <tr>
+          <th>{{ 'department'|t }}</th><td>{{ form.department() }}</td>
+          <th>{{ 'project'|t }}</th><td>{{ form.project() }}</td>
+          <th>{{ 'model'|t }}</th><td>{{ form.model() }}</td>
+        </tr>
+        <tr>
+          <th>{{ 'line'|t }}</th><td>{{ form.line() }}</td>
+          <th>{{ 'keyword'|t }}</th><td>{{ form.word() }}</td>
+          <td colspan="2">
+            <button class="btn btn-primary" type="submit" id="query-btn">{{ 'query'|t }}</button>
+            <button class="btn btn-danger" type="reset" id="query-reset-btn">{{ 'reset'|t }}</button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </p>
+  {% if equipment.count %}
+    {{ equipment.pagination.info|safe }}
+    {{ equipment.pagination.links|safe }}
+    {{ table_header(['picture', 'information', 'project', 'status', 'other']) }}
+    {% for ep in equipment %}
+      <tr>
+        <td>{{ loop.index + equipment.skip }}</td>
+        <td>
+          {{ show_thumbnail(ep.image_link, url=url_for('.show', id=ep.id)) }}
+        </td>
+        <td>
+          <strong>
+            <a href="{{ url_for('.show', id=ep.id) }}" title="{{ 'details'|t }}">
+              {{ ep.name|hl_query(keyword or word)|safe }}
+            </a>
+          </strong><br />
+          <strong>
+            <a href="{{ url_for('.show', id=ep.id) }}" title="{{ 'details'|t }}">
+            {{ ep.flex_id|hl_query(keyword or word)|safe }}
+            {% if ep.fixed_id %}
+              ({{ ep.fixed_id|hl_query(keyword or word)|safe }})
+            {% endif %}
+            </a><br />
+          </strong>
+          <strong>{{ ep.sn|hl_query(keyword or word)|safe }}</strong>
+          <br />
+          @ {% if ep.is_instore %}
+            {{ span_label('store'|t, 'success') }}
+            <strong>({{ ep.latest_location }})</strong>
+          {% else %}
+            {{ span_label('outside'|t, 'important') }}
+            <strong>({{ ep.latest_location }})</strong>
+          {% endif %}
+        </td>
+        <td>
+          {{ ep.department }} ({{ ep.project }})
+        </td>
+        <td>
+          {% if ep.is_good %}
+            {{ span_label('good'|t, 'success') }}
+          {% else %}
+            {{ span_label('bad'|t, 'important') }}
+          {% endif %}
+          {{ ep.get_status|t }}
+        </td>
+        <td>
+          {% if g.user.can_edit_equipment(ep) %}
+            {{ edit_link(url_for('.edit', id=ep.id)) }}
+          {% endif %}
+          {% if g.user.can_update_location(ep) %}
+            {{ warning_link(url_for('.edit2', id=ep.id), text='.change_status') }}
+          {% endif %}
+          {% if g.user.can_remove_equipment(ep) %}
+            {{ delete_link(url_for('.destroy', id=ep.id), id='de%s'|format(ep.id)) }}
+            {{ destroy_confirm('de%s'|format(ep.id)) }}
+          {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+    {{ table_footer() }}
+    {{ equipment.pagination.links|safe }}
+  {% endif %}
+{% endblock %}
+
+{% block js %}
+  {{ query_reset_click(request, ids=('department', 'project', 'model', 'line')) }}
+{% endblock %}

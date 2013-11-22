@@ -1,0 +1,25 @@
+permission_group: Permission Group
+permission_name: Permission Name
+status: Status
+operations: Operations
+resource: Item
+add_permission: Add Permission
+edit_permission: Edit Permission
+asset_user: Asset User
+asset_leader: Asset Leader
+project_leader: Project Leader
+cal_user: Calibration User
+store_user: Store User
+
+active: Actived
+disabled: Disabled
+department_text: Department
+is_active: Active or not?
+enter_department_manually: Enter department if not selected
+or_enter_department_manually: Or enter department if not selected
+all_permissions: All Permissions
+authorize: Authorize
+permission: Permission
+authorization_details: Authorize Details
+user_list: User List
+department_projects: Department|Projects

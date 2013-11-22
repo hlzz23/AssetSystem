@@ -1,0 +1,13 @@
+#!/bin/sh
+
+if [ -e /tmp/flexasset-uwsgi.sock ]; then
+    rm /tmp/flexasset-uwsgi.sock
+fi
+if [ ! -d /var/www/flexasset/assetapp/logs ]; then
+    mkdir /var/www/flexasset/assetapp/logs
+fi
+chown -R www-data.www-data /var/www/flexasset
+chmod -R 777 /var/www/flexasset/assetapp/logs
+
+uwsgi --ini /var/www/flexasset/uwsgi/uwsgi.ini
+chmod o+r /var/log/uwsgi/flexasset.log

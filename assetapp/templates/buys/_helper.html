@@ -1,0 +1,127 @@
+{% from 'helpers.html' import primary_link, warning_link, table_header, table_footer, success_link, span_label %}
+
+{% macro render_links(g, fresh_count=0, assign_count=0, routing=none) %}
+  <p>
+    {{ success_link(url_for('.index'), text='.incomings_list', size='large') }}
+    {{ primary_link(url_for('.index', routing='fresh'), text='%s (%s)'|format('.wait_for_confirm'|t, fresh_count), size='large', class=(routing == 'fresh' and 'inverse') or 'primary') }}
+    {{ primary_link(url_for('.index', routing='accept'), text='%s (%s)'|format('.wait_for_assign_id'|t, assign_count), size='large', class=(routing == 'accept' and 'inverse') or 'primary') }}
+    {% if g.user.can_add_buy %}
+      {{ warning_link(url_for('.new', kind='equipment'), text='.equipment_incoming', size='large') }}
+      {{ warning_link(url_for('.new', kind='sparepart'), text='.sparepart_incoming', size='large') }}
+    {% endif %}
+  </p>
+{% endmacro %}
+
+{% macro show_history(buy) %}
+  {% for h in buy.history %}
+    {{ loop.index }}. {{ span_label(h.time) }}
+    {{ span_label(h.user, 'info') }}
+    {% if h.accept %}
+      {% if h.flow == '1' %}
+        {{ span_label('.confirmed'|t, 'success') }}
+      {% else %}
+        {{ span_label('.assigned'|t, 'success') }}
+        (<strong>{{ buy.asset.flex_id }}</strong>)
+      {% endif %}
+    {% else %}
+      {% if h.flow == '1' %}
+        {{ span_label('.rejected'|t, 'important') }}
+      {% else %}
+        {{ span_label('.refused_assign_flex_id'|t, 'important') }}
+      {% endif %}
+    {% endif %}
+    {% if h.remark %}
+      <br />&nbsp;&nbsp;&nbsp;&nbsp;{{ 'remark'|t }}: {{ h.remark }}<br />
+    {% endif %}
+    <br /><br />
+  {% endfor %}
+{% endmacro %}
+
+{% macro show_buy(buy) %}
+  {{ table_header(['%s (%s)'|format('.incoming_details'|t, buy.routing|t)], use_index=false, border=false, colspan=4) }}
+  <tr>
+    <th>{{ 'last_update'|t }}</th>
+    <td colspan="3">{{ buy.updated_at }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'kind'|t }}</th><td>{{ buy.kind_name|t }}</td>
+    <th>{{ '.record_user'|t }}</th>
+    <td>{{ buy.login or '' }}({{ buy.login_id or '' }})</td>
+  </tr>
+  <tr>
+    <th>{{ 'department'|t }}</th><td>{{ buy.department }}</td>
+    <th>{{ 'project'|t }}</th><td>{{ buy.project }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'name'|t }}</th><td colspan="3">{{ buy.name }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'source'|t }}</th><td>{{ buy.source }}</td>
+    <th>{{ 'source_remark'|t }}</th><td>{{ buy.source_remark }}</td>
+  </tr>
+  <tr>
+    <th>{{ '.track_no'|t }}</th><td>{{ buy.tn }}</td>
+    <th>{{ '.custom_no'|t }}</th><td>{{ buy.cn }}</td>
+  </tr>
+  <tr>
+    <th>{{ '.po'|t }}</th><td>{{ buy.po }}</td>
+    <th>{{ 'model'|t }}</th><td>{{ buy.model }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'supplier'|t }}</th><td>{{ buy.supplier }}</td>
+    <th>{{ 'manufacturer'|t }}</th><td>{{ buy.mf }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'price'|t }}</th><td>$ {{ buy.price }}</td>
+    <th>{{ '.buy_date'|t }}</th><td>{{ buy.date }}</td>
+  </tr>
+  {% if buy.is_sparepart %}
+    <tr>
+      <th>{{ 'spareparts.code'|t }}</th><td>{{ buy.asset.code }}</td>
+      <th>{{ 'description'|t }}</th><td>{{ buy.asset.desc }}</td>
+    </tr>
+    <tr>
+      <th>{{ 'good_qty'|t }}</th>
+      <td>{{ span_label(buy.asset.good, 'success') }}</td>
+      <th>{{ 'bad_qty'|t }}</th>
+      <td>{{ span_label(buy.asset.bad, 'important') }}</td>
+    </tr>
+  {% elif buy.is_equipment %}
+    <tr>
+      <th>{{ 'equipment.req_user'|t }}</th><td>{{ buy.asset.req_user }}</td>
+      <th>{{ 'equipment.req_date'|t }}</th><td>{{ buy.asset.req_date }}</td>
+    </tr>
+    <tr>
+      <th>{{ 'equipment.flex_id'|t }}</th><td>{{ buy.asset.flex_id }}</td>
+      <th>{{ 'sn'|t }}</th><td>{{ buy.asset.sn }}</td>
+    </tr>
+    <tr>
+      <th>{{ 'equipment.fixed_id'|t }}</th>
+      <td colspan="3">{{ buy.asset.fixed_id }}</td>
+    </tr>
+    <tr>
+      <th>{{ 'equipment.warranty_start'|t }}</th><td>{{ buy.asset.ws }}</td>
+      <th>{{ 'equipment.warranty_end'|t }}</th><td>{{ buy.asset.we }}</td>
+    </tr>
+    <tr>
+      <th>{{ 'status'|t }}</th>
+      <td>{{ buy.asset.is_good|bool_msg('good', 'bad') }}</td>
+      <th>{{ 'location'|t }}</th>
+      <td>{{ buy.asset.location }}</td>
+    </tr>
+    <tr>
+      <th>{{ 'description'|t }}</th><td colspan="3">{{ buy.asset.desc }}</td>
+    </tr>
+
+  {% endif %}
+  <tr>
+    <th>{{ 'remark'|t }}</th><td colspan="3">{{ buy.remark }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'history'|t }}</th>
+    <td colspan="3">
+      {{ show_history(buy) }}
+    </td>
+  </tr>
+  {{ table_footer() }}
+{% endmacro %}

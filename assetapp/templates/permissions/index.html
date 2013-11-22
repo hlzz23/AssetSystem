@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  {{ 'permissions'|t }}
+{% endblock %}
+
+{% block body %}
+ <p>
+    {{ success_link(url_for('users.index'), text='user_list', size='large') }}
+    {% if g.user.can_create_permission %}
+      {{ danger_link(url_for('.new'), '.add_permission', size='large') }}
+    {% endif %}
+    {% for r, count in urls %}
+      {% if r == role %}
+        {{ inverse_link(url_for('.index', role=r), text='%s (%s)'|format(('.%s'|format(r))|t, count), size='large') }}
+      {% else %}
+        {{ primary_link(url_for('.index', role=r), text='%s (%s)'|format(('.%s'|format(r))|t, count), size='large') }}
+      {% endif %}
+    {% endfor %}
+  </p>
+  {% if permissions.count %}
+    {{ permissions.pagination.info|safe }}
+    {{ permissions.pagination.links|safe }}
+    {{ table_header(['role', '.permission_name', 'department', 'project', 'users', 'status', 'other']) }}
+    {% for permission in permissions %}
+      <tr>
+        <td>{{ loop.index + permissions.skip }}</td>
+        <td>{{ ('.' + permission.role)|t }}</td>
+        <td class="small-caps">{{ permission.group.title()|hl_query(keyword)|safe }}</td>
+        <td>{{ permission.dept_name|t }}</td>
+        <td>{{ permission.projects|join(', ')|truncate(30) }}</td>
+        <td>
+          {% for user in permission.users %}
+          &raquo; {{ user.nick_name }}<br />
+          {% endfor %}
+        </td>
+        <td class="status-{{ permission.status[1:] }}">{{ permission.status|t }}</td>
+        <td>
+          {{ info_link(url_for('.show', id=permission.id), text='details') }}
+          {% if g.user.can_edit_permission(permission) %}
+            {{ lock_link(url_for('.authorize', id=permission.id), text='.authorize') }}
+            {{ edit_link(url_for('.edit', id=permission.id)) }}
+          {% endif %}
+          {% if g.user.can_remove_permission(permission) %}
+            {{ delete_link(url_for('.destroy', id=permission.id), id=permission.id) }}
+            {{ destroy_confirm(permission.id) }}
+          {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+    {{ table_footer() }}
+    {{ permissions.pagination.links|safe }}
+  {% endif %}
+{% endblock %}

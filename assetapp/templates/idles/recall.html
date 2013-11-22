@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+{% from 'scraps/_helper.html' import show_equipment, js_show_equipment %}
+
+{% block title %}
+  {{ '.recall_equipment'|t }}
+{% endblock %}
+
+{% block body %}
+  <p>
+    {{ primary_link(url_for('.index'), text='back', size='large') }}
+  </p>
+  {{ form_header(form, legend='.recall_equipment') }}
+  {{ form_field(form.flex_id, required=1, disabled=true) }}
+  {{ label_field('.idle_date', idle.date) }}
+  {{ form_field(form.user) }}
+  {{ form_field(form.date, name='.recall_date') }}
+  {{ form_field(form.remark) }}
+  {{ submit_field(submit='.recall', url=url_for('.index')) }}
+  {{ form_footer() }}
+  {{ show_equipment(ep) }}
+{% endblock %}
+
+{% block js %}
+  {{ js_focus('user') }}
+  {{ js_date(['date']) }}
+{% endblock %}

@@ -1,0 +1,90 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  {{ 'user_list'|t }}
+{% endblock %}
+
+{% block body %}
+  <div class="alert alert-info">
+    {{ '.permission_information'|t|safe }}
+  </div>
+  <p>
+    {% if g.user.can_add_user %}
+      {{ danger_link(url_for('.new'), '.add_user', size='large') }}
+    {% endif %}
+    {{ warning_link(url_for('permissions.index'), text='permissions', size='large') }}
+
+    {% for r, count in urls %}
+      {% if r == role %}
+        {{ inverse_link(url_for('.index', role=r), text='%s (%s)'|format(('.%s'|format(r))|t, count), size='large') }}
+      {% else %}
+        {{ primary_link(url_for('.index', role=r), text='%s (%s)'|format(('.%s'|format(r))|t, count), size='large') }}
+      {% endif %}
+    {% endfor %}
+  </p>
+  {% if users.count %}
+    {{ users.pagination.info|safe }}
+    {{ users.pagination.links|safe }}
+    {{ table_header(['login_name', '.contact_info', 'role', 'status', 'other']) }}
+    {% for user in users %}
+      <tr class="{{ user.is_active and 'success' or 'error' }}">
+        <td>{{ loop.index + users.skip }}</td>
+        <td>
+          {{ user.login|hl_query(keyword)|safe }}
+        </td>
+        <td>
+          {% if keyword %}
+            {{ user.nick_name|hl_query(keyword)|safe }}
+          {% else %}
+            <span class="label label-info">
+              {{ user.nick_name }}
+            </span>
+          {% endif %}
+          ({{ user.badge_id }})<br />
+          {% if user.short_no %}{{ 'short_no'|t }}: {{ user.short_no }}<br />{% endif %}
+          {% if user.phone %}{{ 'phone'|t }}: {{ user.phone }}<br />{% endif %}
+          {% if user.gsm %}{{ 'gsm'|t }}: {{ user.gsm }}<br />{% endif %}
+          {% if user.email %}{{ user.email }}{% endif %}
+        </td>
+        <td>
+          {% for p in user.permissions %}
+            {% if p.is_asset_leader %}
+              <span class="label label-success">
+                {{ ('permissions.' + p.role)|t }}
+              </span>
+              {% else %}
+                <span class="label">
+                  {{ ('permissions.' + p.role)|t }}
+                </span>
+              {% endif %}
+            <br />
+            <a id="pop-{{ user.id }}-{{ p.id }}" href="#" rel="popover" data-content="{{ 'projects'|t }}: {{ p.projects|join(', ') }}" data-original-title="{{ '%s - %s'|format('department'|t, p.dept_name|t) }}">
+            &raquo; <span class="small-caps">{{ p.group.title() }}</span>
+            </a>
+            {% if not loop.last %}<br /><br />{% endif %}
+            {{ js_popover("pop-%s-%s"|format(user.id, p.id)) }}
+          {% endfor %}
+        </td>
+        <td class="status-{{ user.status[1:] }}">{{ user.status|t }}</td>
+        <td>
+          {% if not user.is_root and g.user.id != user.id and g.user.can_create_permission %}
+            {{ lock_link(url_for('.authorize', id=user.id), text='.authorize') }}
+          {% endif %}
+          {% if g.user.can_edit_user(user) %}
+            {{ edit_link(url_for('.edit', id=user.id)) }}
+          {% endif %}
+          {% if user.canbe_removed and g.user.can_remove_user(user) %}
+            {{ delete_link(url_for('.destroy', id=user.id), id=user.id) }}
+            {{ destroy_confirm(user.id) }}
+          {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+    {{ table_footer() }}
+    {{ users.pagination.links|safe }}
+  {% endif %}
+{% endblock %}
+
+{% block js %}
+  $().popover();
+{% endblock %}

@@ -1,0 +1,71 @@
+{% from 'helpers.html' import form_header, form_footer, form_field, submit_field %}
+
+{% macro general_form(form, kind='in') %}
+  {{ form_field(form.user, tr_start=true) }}
+  {{ form_field(form.date, tr_end=true, name='.%s_date' % kind) }}
+
+{% endmacro %}
+
+{% macro render_sparepart_form(form, legend, kind='in') %}
+  {{ form_header(form, legend=legend) }}
+  <table width="100%">
+    <tr><td colspan="4"><br /></td></tr>
+    {{ form_field(form.department, tr_start=true) }}
+    {{ form_field(form.project, tr_end=true) }}
+
+    {{ form_field(form.code, tr_start=true, tr_end=true, colspan=4) }}
+    {{ form_field(form.code_text, tr_start=true, tr_end=true, colspan=4) }}
+
+    {{ general_form(form, kind) }}
+
+    {{ form_field(form.good, required=true, tr_start=true) }}
+    {{ form_field(form.bad, required=true, tr_end=true) }}
+
+    {% if kind == 'in' %}
+      {{ form_field(form.where, name='.from_where', tr_start=true, tr_end=true, colspan=4) }}
+    {% else %}
+      {{ form_field(form.where, name='.to_where', tr_start=true, tr_end=true, colspan=4) }}
+    {% endif %}
+    {{ form_field(form.remark, tr_start=true, tr_end=true, colspan=4) }}
+  </table>
+  {{ submit_field('.transfer_%s'|format(kind), url=url_for('.index', kind=kind)) }}
+  {{ form_footer() }}
+{% endmacro %}
+
+{% macro render_equipment_form(form, legend, kind='in') %}
+  {{ form_header(form, legend=legend) }}
+  <table>
+    <tr><td colspan="4"><br /></td></tr>
+    {% if kind == 'in' %}
+      {{ general_form(form, kind) }}
+      {{ form_field(form.department, tr_start=true) }}
+      {{ form_field(form.project, tr_end=true) }}
+
+      {{ form_field(form.name, tr_start=true) }}
+      {{ form_field(form.model, tr_end=true) }}
+
+      {{ form_field(form.sn, tr_start=true) }}
+      {{ form_field(form.flex_id, tr_end=true) }}
+
+      {{ form_field(form.prod_date, tr_start=true) }}
+      {{ form_field(form.fixed_id, tr_end=true) }}
+
+      {{ form_field(form.cn, tr_start=true) }}
+      {{ form_field(form.tn, tr_end=true) }}
+
+      {{ form_field(form.where, name='.from_where', tr_start=true) }}
+      {{ form_field(form.to_where, name='.to_where', tr_end=true) }}
+
+      {{ form_field(form.is_good, tr_start=true, tr_end=true, radio_inline=true, colspan=4) }}
+    {% else %}
+      {{ form_field(form.flex_id, tr_start=true) }}
+      {{ form_field(form.where, name='.to_where', tr_end=true) }}
+      {{ form_field(form.user, tr_start=true) }}
+      {{ form_field(form.date, tr_end=true) }}
+    {% endif %}
+
+    {{ form_field(form.remark, tr_start=true, tr_end=true, colspan=4) }}
+  </table>
+  {{ submit_field('.transfer_%s'|format(kind), url=url_for('.index', kind=kind)) }}
+  {{ form_footer() }}
+{% endmacro %}

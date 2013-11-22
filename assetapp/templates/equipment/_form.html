@@ -1,0 +1,73 @@
+{% from 'helpers.html' import form_header, form_footer, submit_field, form_field, upload_form, js_delete_file %}
+
+{% macro render_form(form, legend, submit='add', equipment=none) %}
+  {{ form_header(form, legend=legend, multipart=true) }}
+  <table width="100%">
+    <tr><td colspan="4"><br /></td></tr>
+    {{ form_field(form.department, tr_start=true) }}
+    {{ form_field(form.project, tr_end=true) }}
+
+    {{ form_field(form.source, required=1, tr_start=true) }}
+    {{ form_field(form.source_text, tr_end=true) }}
+
+    {{ form_field(form.prod_date, tr_start=true) }}
+    {{ form_field(form.sr, tr_end=true) }}
+
+    {{ form_field(form.supplier, tr_start=true) }}
+    {{ form_field(form.mf, tr_end=true) }}
+
+    {{ form_field(form.name, tr_start=true) }}
+    {{ form_field(form.owner, tr_end=true) }}
+
+    {{ form_field(form.flex_id, tr_start=true) }}
+    {{ form_field(form.sn, tr_end=true) }}
+
+    {{ form_field(form.fixed_id, tr_start=true) }}
+    {{ form_field(form.prod_date, tr_end=true) }}
+
+    {{ form_field(form.tn, tr_start=true) }}
+    {{ form_field(form.cn, tr_end=true) }}
+
+    {{ form_field(form.model, tr_start=true) }}
+    {{ form_field(form.price, tr_end=true) }}
+
+    {{ form_field(form.line, tr_start=true) }}
+    {{ form_field(form.location, tr_end=true) }}
+
+    {{ form_field(form.is_good, required=1, radio_inline=true, tr_start=true) }}
+    {{ form_field(form.is_instore, required=1, radio_inline=true, tr_end=true) }}
+
+    {{ form_field(form.ws, tr_start=true) }}
+    {{ form_field(form.we, tr_end=true) }}
+
+    {{ form_field(form.req_date, tr_start=true) }}
+    {{ form_field(form.req_user, tr_end=true) }}
+
+    {{ form_field(form.req_remark, tr_start=true, tr_end=true, colspan=4) }}
+
+    {{ form_field(form.desc, tr_start=true, tr_end=true, colspan=4) }}
+
+    {{ upload_form(tr_start=true, tr_end=true, colspan=4) }}
+    {% if equipment and equipment.uploads.count %}
+      <tr>
+        <td colspan="4"></td>
+      </tr>
+      <tr>
+        <td></td>
+        {% for im in equipment.uploads %}
+          <td>
+            <a href="{{ url_for('static', filename=im.link) }}" id="{{ im.id }}" target="_blank">
+              <img src="{{ url_for('static', filename=im.link) }}" alt="{{ im.name }}" width="260" height="180" />
+            </a>
+            <a href="#pictures" id="del-{{ im.id }}" class="btn btn-danger">
+              {{ 'delete'|t }}
+            </a>
+            {{ js_delete_file(im.id) }}
+          </td>
+        {% endfor %}
+      </tr>
+    {% endif %}
+    {{ submit_field(submit=submit, url=url_for('.index'), colspan=4) }}
+  </table>
+  {{ form_footer() }}
+{% endmacro %}

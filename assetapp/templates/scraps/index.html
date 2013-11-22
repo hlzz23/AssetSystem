@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  {{ '.scraps_list'|t }}
+{% endblock %}
+
+{% block body %}
+  <div class="alert alert-info">
+    {{ 'only_what_user_can_manage_this_page'|t(user='users.asset_user'|t)|safe }}
+  </div>
+  <p>
+    {% if g.user.can_add_scrap %}
+      {{ warning_link(url_for('.new'), text='.scrap_equipment', size='large') }}
+    {% endif %}
+  </p>
+  {% if scraps.count %}
+    {{ scraps.pagination.info|safe }}
+    {{ scraps.pagination.links|safe }}
+    {{ table_header(['name', '.equipment_information', 'transfers.handle_user', '.scrap_date', 'last_update']) }}
+    {% for sc in scraps %}
+      <tr>
+        <td>{{ loop.index + scraps.skip }}</td>
+        <td>{{ sc.asset.name }}</td>
+        <td>{{ sc.asset.get('flex_id', '')|hl_query(keyword)|safe }},
+          {{ sc.asset.sn|hl_query(keyword)|safe }},
+          {{ sc.asset.get('fixed_id', '')|hl_query(keyword)|safe }}
+        </td>
+        <td>{{ sc.login }} - {{ sc.user }}</td>
+        <td>{{ sc.date }}</td>
+        <td>{{ sc.updated_at }}</td>
+      </tr>
+    {% endfor %}
+    {{ table_footer() }}
+    {{ scraps.pagination.links|safe }}
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  {{ 'change_language'|t }}
+{% endblock %}
+
+{% block body %}
+  <p>
+    {% if lang == 'zh' %}
+      {{ success_link(url_for('.change_lang', lang='zh'), text='中文 (当前)', size='large', trans=false) }}
+      {{ primary_link(url_for('.change_lang', lang='en'), text='English', size='large', trans=false) }}
+    {% elif lang == 'en' %}
+      {{ primary_link(url_for('.change_lang', lang='zh'), text='中文', size='large', trans=false) }}
+      {{ success_link(url_for('.change_lang', lang='en'), text='English (Current)', size='large', trans=false) }}
+    {% else %}
+      {{ primary_link(url_for('.change_lang', lang='zh'), text='中文', size='large', trans=false) }}
+      {{ primary_link(url_for('.change_lang', lang='en'), text='English', size='large', trans=false) }}
+    {% endif %}
+  </p>
+{% endblock %}

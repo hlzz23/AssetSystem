@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+{% from 'buys/_helper.html' import show_buy %}
+
+{% block title %}
+  {{ '.assign_flex_id'|t }}
+{% endblock %}
+
+{% block body %}
+  <p>
+    {{ primary_link(url_for('.index'), text='.incomings_list', size='large') }}
+  </p>
+  {{ form_header(form, legend='.assign_flex_id') }}
+  {{ label_field('equipment.req_user', text=buy.asset.req_user) }}
+  {{ label_field('equipment.req_date', text=buy.asset.req_date) }}
+  {{ form_field(form.accept, radio_inline=true) }}
+  {{ form_field(form.flex_id) }}
+  {{ form_field(form.fixed_id) }}
+  {{ form_field(form.remark) }}
+  {{ submit_field(submit='ok', url=url_for('.index')) }}
+  {{ form_footer() }}
+  {{ show_buy(buy) }}
+{% endblock %}
+
+{% block js %}
+  {#
+  {% if form.remark.errors %}
+    $('label[for=remark]').text("{{ '.reject_remark'|t }}");
+  {% endif %}
+  #}
+{% endblock %}

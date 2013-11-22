@@ -1,0 +1,80 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  {{ '.equipment_details'|t }}
+{% endblock %}
+
+{% block body %}
+  <p>
+    {{ primary_link(request.referrer or url_for('.index'), text='back', size='large') }}
+  </p>
+  <hr />
+  {{ table_header(['%s (%s) %s'|format(ep.flex_id, ep.name, 'details'|t)], trans=false, use_index=false, border=false) }}
+  <tr>
+    <th>{{ 'department'|t }}</th><td>{{ ep.department }}</td>
+    <th>{{ 'project'|t }}</th><td>{{ ep.project }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'source'|t }}</th><td>{{ ep.source }}</td>
+    <th>{{ 'source_remark'|t }}</th><td>{{ ep.sr }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'supplier'|t }}</th><td>{{ ep.supplier }}</td>
+    <th>{{ 'manufacturer'|t }}</th><td>{{ ep.mf }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'name'|t }}</th><td>{{ ep.name }}</td>
+    <th>{{ 'description'|t }}</th><td>{{ ep.desc }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'sn'|t }}</th><td>{{ ep.sn }}</td>
+    <th>{{ '.fixed_id'|t }}</th><td>{{ ep.fixed_id }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'buys.track_no'|t }}</th><td>{{ ep.tn }}</td>
+    <th>{{ 'buys.custom_no'|t }}</th><td>{{ ep.cn }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'owner'|t }}</th><td>{{ ep.owner }}</td>
+    <th>{{ 'model'|t }}</th><td>{{ ep.model }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'price'|t }}</th><td>{{ ep.price }}</td>
+    <th>{{ 'status'|t }}</th><td>{{ ep.get_status|t }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'location'|t }}</th><td>{{ ep.location }}</td>
+    <th>{{ 'line'|t }}</th><td>{{ ep.line }}</td>
+  </tr>
+  <tr>
+    <th>{{ '.warranty_start'|t }}</th><td>{{ ep.ws }}</td>
+    <th>{{ '.warranty_end'|t }}</th><td>{{ ep.we }}</td>
+  </tr>
+  <tr>
+    <th>{{ '.is_good'|t }}</th><td>{{ ep.is_good|bool_msg('good', 'bad') }}</td>
+    <th>{{ '.is_instore'|t }}</th><td>{{ ep.is_instore|bool_msg }}</td>
+  </tr>
+  <tr>
+    <th>{{ '.req_user'|t }}</th><td>{{ ep.req_user }}</td>
+    <th>{{ '.req_date'|t }}</th><td>{{ ep.req_date }}</td>
+  </tr>
+  <tr>
+    <th>{{ '.req_remark'|t }}</th>
+    <td colspan="3">{{ ep.req_remark }}</td>
+  </tr>
+  <tr>
+    <th>{{ '.prod_date'|t }}</th>
+    <td colspan="3">{{ ep.prod_date }}</td>
+  </tr>
+  <tr>
+    <th>{{ '.need_cal'|t }}</th><td>{{ ep.need_cal|bool_msg }}</td>
+    <th>{{ '.need_pm'| t }}</th><td>{{ ep.need_pm|bool_msg }}</td>
+  </tr>
+  <tr>
+    <th colspan="4">{{ 'pictures'|t }}</th>
+  </tr>
+  <tr>
+    <td colspan="4">{{ show_pictures(ep.uploads) }}</td>
+  </tr>
+  {{ table_footer() }}
+{% endblock %}

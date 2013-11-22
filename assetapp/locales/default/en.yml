@@ -1,0 +1,231 @@
+system_name: "FMC & PDG Asset Management"
+support_info: "This system is supported by {support}"
+server_under_serious_situation: The server application encounters serious problem
+success: Successful!
+warn: "Warning!"
+error: "Error!"
+all: All
+please_select: "Please Select..."
+home: Home
+about: About
+help: Help
+contact: Contact
+other: Other
+remark: Remark
+name: Name
+price: Price
+date: Date
+qty: QTY
+information: Information
+id_no: "ID#"
+
+login: Login
+please_login: Please Login
+logged_in_as: Logged in as
+logout: Logout
+signup: Signup
+user_login: User Login
+case_not_sensitive: Case not sensitive
+signup_successfully: Successfully registered
+change_language: "Language (语言)"
+
+cancel: Cancel
+submit: Submit
+
+kind: Kind
+"yes": "Yes"
+"no": "No"
+ok: OK
+back: Back
+good: Good
+bad: Bad
+status: Status
+
+# actions
+action: Action
+new: New
+show: Show
+add: Add
+create: Create
+edit: Edit
+update: Update
+delete: Delete
+remove: Remove
+destroy: Destroy
+created_successfully: Created successfully
+updated_successfully: Updated successfully
+destroyed_successfully: Destroyed successfully
+record_not_found: Record not found
+are_you_sure_to_delete: Are you sure to destroy it?
+permission_denied: Permission denied
+details: Details
+
+segment: Segment
+segments: Segments
+department: Department
+departments: Departments
+project: Project
+projects: Projects
+source: Source
+sources: Sources
+source_remark: Source Remark
+supplier: Supplier
+manufacturer: Manufacturer
+
+phone: Office EXT.
+gsm: Mobile
+short_no: Speed Dial
+email: Email
+badge_id: Badge ID
+nick_name: Nick Name
+role: Role
+
+last_update: Last Update
+
+store: Store
+outside: Outside
+history: History
+not_found: Not found
+in_store: In Store
+out_store: Out Store
+
+transfers: Transfers
+assets: Assets
+scraps: Scraps
+idle: IDLE
+scrap: Scraped
+transfer: Transfered Out
+
+page_lang: Language
+login_name: Login Name
+password: Password
+password_again: Password Confirm
+password_not_match: Password not match
+
+# views
+users: Users
+user_list: User List
+permissions: Permissions
+iorecords: "In/Out History"
+store_in_out: "Store In/Out"
+incomings: Incomings
+equipment: Equipment
+sparepart: Sparepart
+spareparts: Spareparts
+goldenboard: Goldenboard
+calibrations: Calibrations
+resources: Resources
+other_resource: Other Resource
+sn: "SN#"
+pn: "PN#"
+model: Model
+line: Line
+location: Location
+description: Description
+
+cannot_be_removed: Can not be removed
+# pagination
+prev_label: "&laquo;"
+next_label: "&raquo;"
+display_msg: "Total <b>{total}</b> records, displaying <b>{start} - {end}</b>"
+search_msg: "Found <b>{found}</b> records, displaying <b>{start} - {end}</b>"
+# search_msg: "Found <b>{found}</b> records in total <b>{total}</b>, displaying <b>{start} - {end}</b>"
+
+# validations
+already_exists: Already exists
+"is already taken": "is already taken"
+
+no_records_found: "No records found, please change the conditions"
+search: Search
+reset: Reset
+enter_something_to_search: "Quick search..."
+
+selectable_header: "<h4>Selectable Items</h4>"
+selected_header: "<h4>Selected Items</h4>"
+
+week: Week
+prev_month: Prev Month
+next_month: Next Month
+
+
+invalid_date: Invalid date
+invalid_time: Invalid time
+good_qty: Good QTY
+bad_qty: Bad QTY
+
+owner: Owner
+
+all_or_none: "Select All/None"
+export: Export
+no_field_was_selected: At least one field is required
+handle_user: Handle User
+keyword: Keyword
+start_date: Start Date
+end_date: End Date
+query: Query
+
+# for importing
+import: Import
+please_select_a_file: Please select a file
+excel_file: Excel File
+update_if_exist: Update if existed
+start_import: Start Import
+please_follow_below_format: Please follow the format
+download_template_file: Download Template File
+notice: Notice
+only_first_sheet_will_be_imported: Only the first sheet will be imported
+
+invalid_row: Invalid format
+
+flex_id: "Flex ID#"
+fixed_id: "Fixed ID#"
+error_occurred: Error Occurred
+imported_result: Imported Result
+only_excel_is_allowed: Only Excel file is allowed
+invalid_format: Invalid Format
+imported_success: Imported successfully
+
+project_not_found: "Row {row}: Project (<b>{pj}</b>) <span class='label label-important'>is not exists</span>"
+require_with: "Row {row}: [{name}] is <span class='label label-important'>empty</span>"
+dup_with: "Row {row}: {name} (<b>{val}</b>) <span class='label label-important'>duplicates</span> with Row {lines}"
+exists_with: "Row {row}: {name} (<b>{val}</b>) <span class='label label-important'>already exists</span>"
+require_string: "Row {row}: {name} (<b>{val}</b>) <span class='label label-important'>is not a string</span>"
+require_int: "Row {row}: {name} (<b>{val}</b>) <span class='label label-important'>is not an integer</span>"
+require_float: "Row {row}: {name} (<b>{val}</b>) <span class='label label-important'>is not a float number</span>"
+require_auth: "Row {row}: <span class='label label-important'>permission denied</span> for [Department (<b>{dp}</b>), Project (<b>{pj}</b>)]"
+sparepart_not_exist: "Row {row}: Spare part [<b>{code}</b>] <span class='label label-important'>not found</span>"
+sparepart_exists: "Row {row}: Spare part [<b>{code}</b>] <span class='label label-important'>already exists</span>"
+
+you_have_permissions_on: "Your current permissions (* means all, case sensitive)"
+you_have_all_permissions: You have all permissions
+
+# upload
+picture: Picture
+pictures: Pictures
+selected_file: Selected Files
+already_selected: Already Selected
+upload_image_title: "Name: {name}&#10;Size: {size} bytes&#10;Width x Height: {width} x {height}"
+
+you_are_using_msie: "Some functions will not work if using IE, please use <a href='{href}'><strong>Google Browser</strong></a> instead."
+
+
+# remarks on operations
+about_user_roles: "&raquo; About User Roles"
+about_asset_leader: "> <strong>Asset Leader</strong> can manage user accounts including permissions, manage projects. If you need some permissions, you can ask them for help."
+about_asset_user: "> <strong>Asset User</strong> can manage equipment, update spare part QTY (after cycle count), assign Flex ID, transfer/scrap assets, set equipment IDLE"
+about_store_user: '> <strong>Store User</strong> can manage the incomings, assets in/out of store, import spare parts.'
+about_project_leader: '> <strong>Project Leader</strong> can decide whether accept the incomings or not.'
+
+about_equipment: "&raquo; About Equipment Operations"
+about_equipment_desc: "Can track equipment location per the records"
+
+about_spareparts: "&raquo; About Spare Part"
+about_spareparts_desc: "Can track spare part location, stock status"
+
+about_store_in_out: "&raquo; About Store In/Out"
+about_store_in_out_desc: "Update assets status for tracking"
+
+about_incomings: "&raquo; About Incomings"
+about_incomings_desc: "> Increase spare part QTY<br />> Introduce new equipment"
+
+only_what_user_can_manage_this_page: "Only <span class='label label-info'>{user}</span> can manage this page"

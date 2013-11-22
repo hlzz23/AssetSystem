@@ -1,0 +1,8 @@
+invalid_name_or_password: Invalid name or password
+not_activated: Not activated
+# actions
+.signup:
+    for_contact: For Contact
+
+we_are_managing: "<h1>We totally have:</h1>"
+signup_successfully: "Signed up successfully"

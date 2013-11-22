@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+{% from 'iorecords/_form.html' import general_form %}
+{% from 'iorecords/_helper.html' import show_dfesc %}
+
+{% block title %}
+  {{ '.sparepart_out'|t }}
+{% endblock %}
+
+{% block body %}
+  <p>
+    {{ primary_link(url_for('.index', kind='out'), text='.outstore_list', size='large') }}
+  </p>
+  {{ form_header(form, legend='.sparepart_out') }}
+  <table width="100%">
+    <tr><td colspan="4"><br /></td></tr>
+
+    {{ form_field(form.code_text, tr_start=true, tr_end=true, colspan=4) }}
+
+  </table>
+  {{ submit_field(submit='.out_store', url=url_for('.sparepart_out', kind='sparepart')) }}
+  <!-- {{ submit_field(submit='.out_store', url=url_for('.sparepart_out', kind='sparepart', code=form.code_text)) }} -->
+  {{ form_footer() }}
+
+{% endblock %}
+
+{% block js %}
+  <!-- {{ js_date(['date']) }}
+  {{ js_timepicker() }}
+  {{ js_code(id2='code-desc') }}
+  {{ js_autocomplete(id='code_text', kind='sout') }} -->
+{% endblock %}

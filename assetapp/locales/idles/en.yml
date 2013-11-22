@@ -1,0 +1,13 @@
+idle_equipment: IDLE Equipment
+equipment_details: Equipment Details
+idle_date: IDLE Date
+idles_list: IDLE List
+idle: IDLE
+idleed_successfully: Equipment was set to IDLE status successfully
+already_idleed: already idled
+
+recall_equipment: Recall Equipment
+recall: Recall
+recalled_successfully: Equipment IDLE status was cleared successfully
+recall_date: Recall Date
+equipment_information: Equipment Information

@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+{% from 'permissions/_form.html' import render_form %}
+
+{% block title %}
+  {{ '.add_permission'|t }}
+{% endblock %}
+
+{% block body %}
+  <p>
+    {{ primary_link(url_for('.index'), text='back', size='large') }}
+  </p>
+  {{ render_form(form, legend='.add_permission', submit='add') }}
+{% endblock %}
+
+{% block js %}
+  {{ js_focus('group') }}
+  $(function(){
+    $('.multiselect').multiSelect(
+      {selectableHeader: "{{ 'selectable_header'|t|safe }}",
+        selectedHeader: "{{ 'selected_header'|t|safe }}",
+      });
+  });
+
+  {{ js_role_select() }}
+{% endblock %}

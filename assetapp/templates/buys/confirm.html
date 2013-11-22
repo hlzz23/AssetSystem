@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+{% from 'buys/_helper.html' import show_buy %}
+
+{% block title %}
+  {{ '.incoming_confirm'|t }}
+{% endblock %}
+
+{% block body %}
+  <p>
+    {{ primary_link(url_for('.index'), text='.incomings_list', size='large') }}
+  </p>
+  {{ form_header(form, legend='.incoming_confirm') }}
+  {{ form_field(form.accept, radio_inline=true) }}
+  {{ form_field(form.remark) }}
+  {{ submit_field(submit='ok', url=url_for('.index')) }}
+  {{ form_footer() }}
+  {{ show_buy(buy) }}
+{% endblock %}

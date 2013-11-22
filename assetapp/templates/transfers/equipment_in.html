@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+{% from 'transfers/_form.html' import render_equipment_form %}
+
+{% block title %}
+  {{ '.equipment_in'|t }}
+{% endblock %}
+
+{% block body %}
+  <p>
+    {{ primary_link(url_for('.index'), text='back', size='large') }}
+  </p>
+  {{ render_equipment_form(form, '.equipment_in', kind='in') }}
+{% endblock %}
+
+{% block js %}
+  {{ js_date(['date', 'prod_date']) }}
+{% endblock %}

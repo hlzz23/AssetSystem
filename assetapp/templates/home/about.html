@@ -1,0 +1,76 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  {{ 'about'|t }}
+{% endblock %}
+
+{% block body %}
+  <div class="hero-unit">
+    <h3>{{ 'support_info'|t(support='FlexComputing TE') }}</h3><br />
+    <div class="accordion" id="accordion">
+      <div class="accordion-group">
+        <div class="accordion-heading">
+          <a class="accordion-toggle" data-toggle="collapse" data-target="#about-user-roles">
+            {{ 'about_user_roles'|t|safe }}
+          </a>
+        </div>
+        <div id="about-user-roles" class="collapse" style="height: 0px; ">
+          <div class="accordion-inner">
+            {{ 'about_asset_leader'|t|safe }}<br />
+            {{ 'about_asset_user'|t|safe }}<br />
+            {{ 'about_store_user'|t|safe }}<br />
+            {{ 'about_project_leader'|t|safe }}
+          </div>
+        </div>
+      </div><br />
+      <div class="accordion-group">
+        <div class="accordion-heading">
+          <a class="accordion-toggle" data-toggle="collapse" data-target="#about-equipment">
+            {{ 'about_equipment'|t|safe }}
+          </a>
+        </div>
+        <div id="about-equipment" class="collapse" style="height: 0px; ">
+          <div class="accordion-inner">
+            {{ 'about_equipment_desc'|t|safe }}
+          </div>
+        </div>
+      </div><br />
+      <div class="accordion-group">
+        <div class="accordion-heading">
+          <a class="accordion-toggle" data-toggle="collapse" data-target="#about-spareparts">
+            {{ 'about_spareparts'|t|safe }}
+          </a>
+        </div>
+        <div id="about-spareparts" class="collapse" style="height: 0px; ">
+          <div class="accordion-inner">
+            {{ 'about_spareparts_desc'|t|safe }}
+          </div>
+        </div>
+      </div><br />
+      <div class="accordion-group">
+        <div class="accordion-heading">
+          <a class="accordion-toggle" data-toggle="collapse" data-target="#about-store-in-out">
+            {{ 'about_store_in_out'|t|safe }}
+          </a>
+        </div>
+        <div id="about-store-in-out" class="collapse" style="height: 0px; ">
+          <div class="accordion-inner">
+            {{ 'about_store_in_out_desc'|t|safe }}
+          </div>
+        </div>
+      </div><br />
+      <div class="accordion-group">
+        <div class="accordion-heading">
+          <a class="accordion-toggle" data-toggle="collapse" data-target="#about-incomings">
+            {{ 'about_incomings'|t|safe }}
+          </a>
+        </div>
+        <div id="about-incomings" class="collapse" style="height: 0px; ">
+          <div class="accordion-inner">
+            {{ 'about_incomings_desc'|t|safe }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+{% from 'spareparts/_form.html' import render_form %}
+
+{% block title %}
+  {{ '.add_code'|t }}
+{% endblock %}
+
+{% block body %}
+  <p>
+    {{ primary_link(url_for('.index'), text='back', size='large') }}
+  </p>
+  {{ render_form(form, legend='.add_code', submit='add', can_edit_qty=true) }}
+{% endblock %}
+
+{% block js %}
+  $(".collapse").collapse("{{ 'show' if form.errors else 'hide' }}");
+  {{ js_upload(id='pictures') }}
+{% endblock %}

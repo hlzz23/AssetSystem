@@ -1,0 +1,12 @@
+{% from 'helpers.html' import form_field %}
+{% import time %}
+{% macro general_form(form, kind='in') %}
+  {{ form_field(form.user, name='.%s_user'|format(kind), tr_start=true) }}
+  {{ form_field(form.uid, tr_end=true) }}
+
+  {{ form_field(form.date, name='.%s_date'|format(kind), tr_start=true) }}
+  {{ form_field(form.time, tr_end=true) }}
+
+  {{ form_field(form.hard_copy, tr_start=true, tr_end=true, colspan=4) }}
+  {{ form_field(form.remark, tr_start=true, tr_end=true, colspan=4) }}
+{% endmacro %}

@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+{% from 'iorecords/_form.html' import general_form %}
+
+{% block title %}
+  {{ '.sparepart_in'|t }}
+{% endblock %}
+
+{% block body %}
+  <p>
+    {{ primary_link(url_for('.index', kind='in'), text='.instore_list', size='large') }}
+  </p>
+  {{ form_header(form, legend='.sparepart_in') }}
+  <table width="100%">
+    <tr><td colspan="4"><br /></td></tr>
+    {{ form_field(form.department, tr_start=true) }}
+    {{ form_field(form.project, tr_end=true) }}
+
+    {{ form_field(form.code, tr_start=true, tr_end=true, colspan=4) }}
+    {{ form_field(form.code_text, tr_start=true, tr_end=true, colspan=4) }}
+
+    {{ form_field(form.good, required=1, tr_start=true) }}
+    {{ form_field(form.bad, required=1, tr_end=true) }}
+
+    {{ general_form(form, kind='in') }}
+  </table>
+  {{ submit_field(submit='.into_store', url=url_for('.index', kind='in')) }}
+  {{ form_footer() }}
+
+{% endblock %}
+
+{% block js %}
+  {{ js_date(['date']) }}
+  {{ js_timepicker() }}
+  {{ js_code(id2='code-desc') }}
+  {{ js_autocomplete(id='code_text', kind='sin') }}
+{% endblock %}

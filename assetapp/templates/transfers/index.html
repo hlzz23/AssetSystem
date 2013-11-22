@@ -1,0 +1,82 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  {{ '.transfer_list'|t }}
+{% endblock %}
+
+{% block body %}
+  <div class="alert alert-info">
+    {{ 'only_what_user_can_manage_this_page'|t(user='users.asset_user'|t)|safe }}
+  </div>
+  <p>
+    {{ inverse_link(url_for('.index', kind='frozen'), text='.frozen', size='large') }}
+    {{ success_link(url_for('.equipment_in'), text='.equipment_in', size='large') }}
+    {{ success_link(url_for('.transfer_sparepart', kind='in'), text='.sparepart_in', size='large') }}
+    {{ danger_link(url_for('.equipment_out'), text='.equipment_out', size='large') }}
+    {{ danger_link(url_for('.transfer_sparepart', kind='out'), text='.sparepart_out', size='large') }}
+    {{ warning_link(url_for('.export'), text='export', size='large') }}
+  </p>
+  <p>
+    <form method="get">
+      <input id="kind" name="kind" type="hidden" value="{{ kind }}">
+      <table width="100%">
+        <tr>
+          <th>{{ 'department'|t }}</th><td>{{ form.department() }}</td>
+          <th>{{ 'project'|t }}</th><td>{{ form.project() }}</td>
+          <th>{{ 'keyword'|t }}</th><td>{{ form.word(placeholder='spareparts.name_or_code'|t) }}</td>
+        </tr>
+        <tr>
+          <th>{{ 'start_date'|t }}</th><td>{{ form.start_date(placeholder='1970-01-01') }}</td>
+          <th>{{ 'end_date'|t }}</th><td>{{ form.end_date(placeholder='2012-12-29') }}</td>
+          <td colspan="2">
+            <button class="btn btn-primary" type="submit" id="query-btn">{{ 'query'|t }}</button>
+            <button class="btn btn-danger" type="reset" id="query-reset-btn">{{ 'reset'|t }}</button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </p>
+  {% if transfers.count %}
+    {{ transfers.pagination.info|safe }}
+    {{ transfers.pagination.links|safe }}
+    {{ table_header(['kind', '.direction', 'handle_user', 'date', '.from_where', '.to_where', 'qty', 'other']) }}
+    {% for tf in transfers %}
+    <tr>
+      <td>{{ loop.index + transfers.skip }}</td>
+      <td>{{ tf.kind_name|t }}</td>
+      <td>
+        {% if tf.is_in %}{{ span_label('.transfer_in'|t, 'success') }}
+        {% else %}{{ span_label('.transfer_out'|t, 'important') }}
+        {% endif %}
+      </td>
+      <td>{{ tf.user }}</td>
+      <td>{{ tf.date }}</td>
+      <td>{{ tf.from_where }}</td>
+      <td>{{ tf.to_where }}</td>
+      <td>
+        {% if tf.is_sparepart %}
+          {{ span_badge(tf.good_qty, 'success') }}&nbsp;-
+          {{ span_badge(tf.bad_qty, 'important') }}
+        {% elif tf.asset.is_good %}
+          {{ span_badge(1, 'success') }}
+        {% else %}
+          {{ span_badge(1, 'important') }}
+        {% endif %}
+      </td>
+      <td>
+        {{ primary_link(url_for('.show', id=tf.id), text='details') }}
+        {% if not tf.is_sparepart and not tf.is_activate %}
+          {{ edit_link(url_for('.load', id=tf.id), text='.load', class='warning') }}
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+    {{ table_footer() }}
+    {{ transfers.pagination.links|safe }}
+  {% endif %}
+{% endblock %}
+
+{% block js %}
+  {{ js_date(['start_date', 'end_date']) }}
+  {{ query_reset_click(request, ids=(('department', 'project', 'word', 'start_date', 'end_date'))) }}
+{% endblock %}

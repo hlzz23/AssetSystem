@@ -1,0 +1,8 @@
+invalid_name_or_password: 用户名或密码不对
+not_activated: 没有激活
+# forms
+.signup:
+    for_contact: 便于联系
+
+we_are_managing: "<h1>我们共有:</h1>"
+signup_successfully: "注册成功"

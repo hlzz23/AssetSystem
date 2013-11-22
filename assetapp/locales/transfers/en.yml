@@ -1,0 +1,25 @@
+sparepart_in: Sparepart In
+sparepart_out: Sparepart Out
+
+equipment_in: Equipment In
+equipment_out: Equipment Out
+from_where: From Where
+to_where: To Where
+transfer_in: Transfer In
+transfer_out: Transfer Out
+direction: Direction
+sparepart_transfer_in_successfully: Spare part transferred in successfully
+sparepart_transfer_out_successfully: Spare part transferred out successfully
+
+equipment_transfer_in_successfully: Equipment transferred in successfully
+equipment_transfer_out_successfully: Equipment transferred out successfully
+
+transfer_date: Transfer Date
+transfer_list: Transfer List
+
+load: Activate
+load_equipment: Activate Equipment
+frozen: Frozen Assets
+in_date: Transfer In Date
+out_date: Transfer Out Date
+export_transfers: Export Transfer List

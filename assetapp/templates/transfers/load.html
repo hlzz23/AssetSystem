@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+{% from 'equipment/_form.html' import render_form %}
+
+{% block title %}
+  {{ '.load_equipment'|t }}
+{% endblock %}
+
+{% block body %}
+  <p>
+    {{ primary_link(url_for('.index'), text='back', size='large') }}
+  </p>
+  {{ render_form(form, submit='.load') }}
+{% endblock %}
+
+{% block js %}
+  {{ js_date(['prod_date', 'req_date', 'ws', 'we']) }}
+{% endblock %}

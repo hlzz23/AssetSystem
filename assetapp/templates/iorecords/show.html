@@ -1,0 +1,100 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  {{ '.iohistory_details'|t }}
+{% endblock %}
+
+{% block body %}
+  <p>
+    {{ primary_link(request.referrer or url_for('.index', kind=kind), text='back', size='large') }}
+  </p>
+  <hr />
+  {{ table_header(['%s (%s @ %s)'|format('details'|t, 'last_update'|t, io.updated_at)], use_index=false, border=false, trans=false, colspan=6) }}
+  <tr>
+    <th>{{ 'kind'|t }}</th><td>{{ io.kind_name|t }}</td>
+    <th>{{ '.keyid'|t }}</th><td>{{ io.keyid }}</td>
+    <th>{{ 'name'|t }}</th><td>{{ io.name }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'department'|t }}</th><td>{{ io.department }}</td>
+    <th>{{ 'project'|t }}</th><td>{{ io.project }}</td>
+    {% if io.is_sparepart %}
+      <th>{{ 'pn'|t }}</th><td>{{ io.asset.pn }}</td>
+    {% else %}
+      <th>{{ 'model'|t }}</th><td>{{ io.asset.model }}</td>
+    {% endif %}
+  </tr>
+  <tr>
+    <th>{{ 'users.store_user'|t }}</th>
+    <td>{{ io.login }} ({{ io.login_id }})</td>
+    <th>{{ '.%s_user'|format(io.is_out and 'out' or 'in')|t }}</th>
+    <td>{{ io.user }} ({{ io.uid }})</td>
+    <th>{{ '.%s_date'|format(io.is_out and 'out' or 'in')|t }}</th>
+    <td>{{ io.date }} {{ io.time }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'remark'|t }}</th><td colspan="5">{{ io.remark }}</td>
+  </tr>
+  <tr>
+    <th>{{ '.hard_copy'|t }}</th><td colspan="5">{{ io.hard_copy }}</td>
+  </tr>
+  <tr>
+    <td colspan="6">
+      {{ table_header(['.event'], use_index=false, colspan=4) }}
+      <tr>
+        <th>{{ '.date'|t }}</th><td>{{ io.date }}</td>
+      </tr>
+      <tr>
+        <th>{{ '.direction'|t }}</th>
+        <td>
+          {% if io.is_out %}
+            {{ span_label('.out_store'|t, 'important') }}
+          {% else %}
+            {{ span_label('.into_store'|t, 'success') }}
+          {% endif %}
+        </td>
+      </tr>
+      <tr>
+        <th>{{ '.from'|t }}</th><td>{{ io.from_user }} ({{ io.from_uid }})</td>
+      </tr>
+      <tr>
+        <th>{{ '.to'|t }}</th><td>{{ io.to_user }} ({{ io.to_uid }})</td>
+      </tr>
+      {% if io.is_sparepart %}
+        <tr>
+          <th>{{ 'good_qty'|t }}</th>
+          <td>{{ span_badge(io.good_qty, 'success') }}</td>
+        </tr>
+        <tr>
+          <th>{{ 'bad_qty'|t }}</th>
+          <td>{{ span_badge(io.bad_qty, 'important') }}</td>
+        </tr>
+      {% else %}
+        <tr>
+          <th>{{ 'status'|t }}</th>
+          <td>
+            {% if io.asset.iogood %}
+              {{ span_label('good'|t, 'success') }}
+            {% else %}
+              {{ span_label('bad'|t, 'important') }}
+            {% endif %}
+          </td>
+        </tr>
+      {% endif %}
+      {% if io.is_out %}
+        <tr>
+          <th>{{ '.destination'|t }}</th>
+          <td>
+            {{ io.to_location }}
+          </td>
+        </tr>
+      {% elif not io.is_sparepart %}
+        <tr>
+          <th>{{ '.back_location'|t }}</th><td>{{ io.asset.back_to }}</td>
+        </tr>
+      {% endif %}
+      {{ table_footer() }}
+    </td>
+  </tr>
+  {{ table_footer() }}
+{% endblock %}

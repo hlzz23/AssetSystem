@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+{% from 'projects/_form.html' import render_form %}
+
+{% block title %}
+  {{ '.edit_project'|t }}
+{% endblock %}
+
+{% block body %}
+  <p>
+    {{ primary_link(url_for('.index'), text='back', size='large') }}
+  </p>
+  {{ render_form(form, legend='.edit_project', submit='update') }}
+{% endblock %}
+
+{% block js %}
+  {{ js_focus('name') }}
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  {{ 'export'|t }}
+{% endblock %}
+
+{% block body %}
+  <p>
+    {{ primary_link(url_for('.index'), text='back', size='large') }}
+  </p>
+  {{ export_form(form, fields, checked=checked, legend='.export_sparepart') }}
+{% endblock %}
+
+{% block js %}
+  {{ export_js(name='allornone', class='exporting') }}
+{% endblock %}

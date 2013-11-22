@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+{% from 'spareparts/_form.html' import render_form %}
+
+{% block title %}
+  {{ '.edit_code'|t }}
+{% endblock %}
+
+{% block body %}
+  <p>
+    {{ primary_link(url_for('.index'), text='back', size='large') }}
+  </p>
+  {{ render_form(form, legend='.edit_code'|t, submit='update', can_edit_qty=can_edit_qty, sp=sp) }}
+{% endblock %}
+
+{% block js %}
+  $(".collapse").collapse("show");
+  {{ js_upload(id='pictures') }}
+{% endblock %}

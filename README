@@ -1,0 +1,63 @@
+Installation
+=============
+
+1. Install python-setuptools
+    $sudo apt-get install python-setuptools
+
+2. Install Flask related packages
+    see Flask website document for details
+    1) download flask-wtf (need wtforms) and extract it
+        $cd flask-wtf
+        $sudo python setup.py install
+
+    2) download flask-cache and extract it
+        $cd flask-cache
+        $sudo python setup.py install
+
+3. Install user-defined packages
+    * Only available in Flextronics internal
+    1) $sudo pip install flask-mongobit --proxy=http://xxxx:3128
+
+    3) $sudo pip install flask-paginate --proxy=http://xxxx:3128
+
+    4) $sudo pip install flask-yamli18n --proxy=http://xxxx:3128
+
+4. create admin account and indexes
+   $cd /var/www/flexasset/scripts
+   1) $sudo python create_indexes.py
+   2) $sudo python create_admin.py
+
+5. Install nginx
+    $sudo apt-get install nginx
+
+6. Install uwsgi
+    1) $sudo pip install uwsgi
+    or
+    2)
+    $wget http://projects.unbit.it/downloads/uwsgi-X.X.tar.gz
+    $tar -xzvf uwsgi-X.X.tar.gz
+    $cd uwsgi
+    $sudo python setup.py install
+
+7. Run the application
+   $cd /var/www/flexasset/uwsgi
+   $sudo chmod +x uwsgi.run
+   $sudo ./uwsgi.run
+
+8. Reload the application
+    $cd /var/www/flexasset/uwsgi
+    $sudo chmod +x uwsgi.reload
+    $sudo ./uwsgi.reload
+
+9. crontab tasks
+    $crontab -e
+    # add below lines
+
+    # 1. store qty notification (from Monday to Friday, @08:00)
+    0 8 * * 1-5 python /var/www/flexasset/scripts/notifications/store_alert.py
+
+    # 2. incomings notification (from Monday to Friday, @08:00)
+    0 8 * * 1-5 python /var/www/flexasset/scripts/notifications/incomings_alert.py
+
+    # 3. assign Flex asset id notification (from Monday to Friday, @08:00)
+    0 8 * * 1-5 python /var/www/flexasset/scripts/notifications/assign_alert.py

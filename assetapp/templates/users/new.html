@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+{% from 'users/_form.html' import render_form %}
+
+{% block title %}
+  {{ '.add_user'|t }}
+{% endblock %}
+
+{% block body %}
+  <p>
+    {{ primary_link(url_for('.index'), text='back', size='large') }}
+  </p>
+  {{ render_form(form, request, '.add_user', submit='add') }}
+{% endblock %}
+
+{% block js %}
+  $(".collapse").collapse("{{ 'show' if form.errors else 'hide' }}");
+  {{ js_focus('login') }}
+{% endblock %}

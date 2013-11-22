@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+{% from 'iorecords/_form.html' import general_form %}
+{% from 'iorecords/_helper.html' import show_desc %}
+
+{% block title %}
+  {{ '.equipment_in'|t }}
+{% endblock %}
+
+{% block body %}
+  <p>
+    {{ primary_link(url_for('.index', kind='in'), text='.instore_list', size='large') }}
+  </p>
+  {{ form_header(form, legend='.equipment_in') }}
+  <table width="100%">
+    <tr><td colspan="4"><br /></td></tr>
+    {{ form_field(form.flex_id, tr_start=true, tr_end=true, colspan=4)}}
+
+    {{ form_field(form.location, tr_start=true) }}
+    {{ form_field(form.is_good, radio_inline=true, tr_end=true) }}
+
+    {{ general_form(form, kind='in') }}
+  </table>
+  {{ submit_field(submit='.into_store', url=url_for('.index', kind='in')) }}
+  {{ form_footer() }}
+
+{% endblock %}
+
+{% block js %}
+  {{ js_date(['date']) }}
+  {{ js_focus('flex_id') }}
+  {{ js_autocomplete(id='flex_id', kind='ein') }}
+  {{ js_timepicker() }}
+{% endblock %}

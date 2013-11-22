@@ -1,0 +1,575 @@
+{% macro form_header(form, action='', legend=none, trans=true, multipart=false) %}
+  {% if multipart %}
+    {% set enctype = ' enctype="multipart/form-data"' %}
+  {% else %}
+    {% set enctype = '' %}
+  {% endif %}
+  <form action="{{ action }}" method="post"{{ enctype|safe }} class="form-horizontal">
+    {{ form.hidden_tag() }}
+    <fieldset>
+      {% if legend %}
+        <legend>{{ trans and legend|t|safe or legend }}</legend>
+      {% endif %}
+{% endmacro %}
+
+{% macro form_footer() %}
+    </fieldset>
+  </form>
+{% endmacro %}
+
+{% macro import_form(form, legend=none, trans=true, submit='start_import', url=none, template=none, image=none, checked=none) %}
+  {{ form_header(form, legend=legend, trans=trans, multipart=true) }}
+  <table width="100%">
+    <tr>
+      <td colspan='2'>
+        <span style='color: #f40;'>
+          {{ 'notice'|t }}: {{ 'only_first_sheet_will_be_imported'|t }}
+        </span>
+      </td>
+    </tr>
+    <tr>
+      <td>{{ 'excel_file'|t }}:</td>
+      <td>
+        <input id="attachment" name="attachment" type="file" />
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td colspan="2">
+        {% if checked is none %}
+        {% elif checked %}
+          <input type='checkbox' name='if-update' value="if-update" checked />
+          <span style="color: #f40;">{{ 'update_if_exist'|t }}</span>
+        {% else %}
+          <input type='checkbox' name='if-update' value="if-update" />
+          <span style="color: #f40;">{{ 'update_if_exist'|t }}</span>
+        {% endif %}
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <div class="form-actions">
+          {{ render_btn('start_import'|t) }}
+          {{ render_link(url, text='cancel', size='large', trans=trans) }}
+        </div>
+      </td>
+    </tr>
+  </table>
+  {{ form_footer() }}
+  <hr />
+  <div>
+    <h2>{{ 'please_follow_below_format'|t }}&nbsp;&nbsp;
+      &raquo;
+        {{ success_link(url_for('static', filename='excels/%s'|format(template)), text='download_template_file', size='large', icon='arrow-down') }}
+      &laquo;
+    </h2><br />
+    <img src="{{ url_for('static', filename='img/imports/%s'|format(image)) }}" alt="{{ 'format'|t }}" />
+  </div>
+{% endmacro %}
+
+{% macro show_import_info(error, file_name) %}
+  {% if error %}
+    <div class="alert alert-error">
+      <h3 class="alert-heading">
+        {{ 'error_occurred'|t }}: {{ file_name }}
+      </h3>
+    </div>
+  {% else %}
+    <div class="alert alert-success">
+      <h3 class="alert-heading">
+        {{ 'imported_success'|t }}: {{ file_name }}
+      </h3>
+    </div>
+  {% endif %}
+{% endmacro %}
+
+{% macro show_import_errors(errors) %}
+  {% if errors %}
+    <div class="alert alert-error">
+      {% for msg in errors %}
+        {{ msg|safe }}<br />
+        ----------------------------------------------------------<br />
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endmacro %}
+
+{% macro show_permission_info(g) %}
+  <div class="alert alert-info">
+    <h3>{{ 'you_have_permissions_on'|t }}:</h3>
+    {% if g.user.is_root %}
+      &raquo; {{ 'you_have_all_permissions'|t }}
+    {% else %}
+      {% for p in g.user.permissions %}
+        {{ loop.index }}.
+        {{ 'department'|t }} ({{ p.dept_name|t }}),
+        {{ 'projects'|t }} ({{ p.projects|join(', ') }})<br />
+      {% endfor %}
+    {% endif %}
+  </div>
+{% endmacro %}
+
+{% macro get_subnav(g, css_id='home', href='#', text='home', trans=true) %}
+  {% if g.css_id == css_id %}
+    <li class="active">
+  {% else %}
+    <li>
+  {% endif %}
+    <a href="{{ href }}">{{ trans and text|t|safe or text|safe }}</a>
+  </li>
+{% endmacro %}
+
+{% macro render_btn(text='submit', class="btn btn-large btn-primary", trans=true) %}
+  <button type="submit" class="{{ class }}">{{ trans and text|t|safe or text }}</button>
+{% endmacro %}
+
+{% macro submit_field(submit='submit', cancel='cancel', url='#', trans=true, colspan=0) %}
+  {% if colspan %}
+  <tr>
+    <td colspan="{{ colspan }}">
+  {% endif %}
+  <div class="form-actions">
+    {{ render_btn(submit|t|safe) }}
+    {{ render_link(url, cancel, size='large', trans=trans) }}
+  </div>
+  {% if colspan %}
+    </td></tr>
+  {% endif %}
+{% endmacro %}
+
+{% macro span_badge(text, class=none) %}
+  <span class="badge{{ class and ' badge-%s'|format(class) or '' }}">{{ text }}</span>
+{% endmacro %}
+
+{% macro span_label(text, class=none) %}
+  <span class="label{{ class and ' label-%s'|format(class) or '' }}">{{ text }}</span>
+{% endmacro %}
+
+{% macro render_link(url, text, class=none, size="large", id='', trans=true, icon=none) %}
+  <a href="{{ url }}"{{ id and " id=%s"|format(id) or '' }} class="{{ (class and ('btn btn-' + class)) or 'btn' }} btn-{{ size }}">
+    {% if icon %}
+    <i class="icon-{{ icon }} icon-white"></i>
+    {% endif %}
+    {{ trans and text|t|safe or text }}
+  </a>
+{% endmacro %}
+
+{% macro info_link(url, text, size='small', trans=true) %}
+  <a href="{{ url }}" class="btn btn-info btn-{{ size }}">
+    <i class="icon-info-sign icon-white"></i>
+    {{ trans and text|t|safe or text }}
+  </a>
+{% endmacro %}
+
+{% macro primary_link(url, text, class='primary', size='small', trans=true, icon=none) %}
+  {{ render_link(url, text, class=class, size=size, trans=trans, icon=icon) }}
+{% endmacro %}
+
+{% macro warning_link(url, text, class='warning', size='small', trans=true, icon=none) %}
+  {{ render_link(url, text, class=class, size=size, trans=trans, icon=icon) }}
+{% endmacro %}
+
+{% macro success_link(url, text, class='success', size='small', trans=true, icon=none) %}
+  {{ render_link(url, text, class=class, size=size, trans=trans, icon=icon) }}
+{% endmacro %}
+
+{% macro lock_link(url, text, class='warning', icon='lock') %}
+  {{ warning_link(url, text, class=class, icon=icon) }}
+{% endmacro %}
+
+{% macro edit_link(url, class='primary', text='edit', icon='edit') %}
+  {{ primary_link(url, text, class=class, icon=icon) }}
+{% endmacro %}
+
+{% macro delete_link(url, id, text='delete', icon='trash') %}
+  {{ danger_link(url, text, id=id, icon=icon) }}
+{% endmacro %}
+
+{% macro danger_link(url, text, class='danger', size='small', id='', trans=true, icon=none) %}
+  {{ render_link(url, text, class=class, size=size, id=id, trans=trans, icon=icon) }}
+{% endmacro %}
+
+{% macro inverse_link(url, text, class='inverse', size='small', id='', trans=true, icon=none) %}
+  {{ render_link(url, text, class=class, size=size, id=id, trans=trans, icon=icon) }}
+{% endmacro %}
+
+{% macro show_field_errors(errors) %}
+  <span class="help-inline">
+    {% for error in errors %}{{ error|t|safe }}{% endfor %}
+  </span>
+{% endmacro %}
+
+{% macro upload_form(name='pictures', id='pictures', colspan=1, tr_start=false, tr_end=false) %}
+  {% if tr_start %}<tr>{% endif %}
+  {% if tr_start or tr_end %}<td colspan="{{ colspan }}">{% endif %}
+  <div class="control-group">
+    <label class="control-label" for="{{ name }}">
+      {{ name|t|safe }}
+    </label>
+    <div class="controls">
+      <div class="controls">
+        <input class="multi input-file" id="{{ id }}" type="file" name="{{ id }}" />
+      </div>
+    </div>
+  </div>
+
+  {% if tr_start or tr_end %}</td>{% endif %}
+  {% if tr_end %}</tr>{% endif %}
+{% endmacro %}
+
+{% macro form_field(field, name=none, required=-1, size='5', placeholder='', class='', as_hint=false, radio_inline=false, tr_start=false, tr_end=false, colspan=1, disabled=false) %}
+  {% set required = (required == 1) or (required == -1 and field.flags.required) or false %}
+  {% if tr_start %}<tr>{% endif %}
+  {% if tr_start or tr_end %}<td colspan="{{ colspan }}">{% endif %}
+  <div class="control-group{{ field.errors and ' error' or '' }}">
+    <label class="control-label" for="{{ field.name }}">
+      {{ (name or field.label.text)|t|safe }}
+      {% if required %}(<font color="red">*</font>){% endif %}
+    </label>
+    <div class="controls">
+      {% if field.type == 'RadioField' %}
+        {% for subfield in field %}
+          <label class="radio{{ radio_inline and ' inline' or '' }}">
+            {{ subfield }}{{ subfield.label }}
+          </label>
+        {% endfor %}
+        {% if placeholder %}
+          <span class="label label-info">{{ placeholder }}</span>
+        {% endif %}
+      {% else %}
+        {% if as_hint %}
+          {{ field(class_=class) }}
+          {% if field.errors %}
+            {{ show_field_errors(field.errors) }}
+          {% endif %}
+          {% if placeholder %}
+            <br /><span class="label label-info">{{ placeholder }}</span>
+          {% endif %}
+        {% else %}
+          {% if disabled %}
+            {{ field(class_=class + ' disabled', placeholder=placeholder, disabled='disabled') }}
+          {% else %}
+            {{ field(class_=class, placeholder=placeholder) }}
+          {% endif %}
+          {% if field.errors %}
+            {{ show_field_errors(field.errors) }}
+          {% endif %}
+        {% endif %}
+      {% endif %}
+    </div>
+  </div>
+  {% if tr_start or tr_end %}</td>{% endif %}
+  {% if tr_end %}</tr>{% endif %}
+{% endmacro %}
+
+{% macro label_field(label, text='', class='btn disabled', trans=true, tr_start=false, tr_end=false, colspan=1) %}
+  {% if tr_start %}<tr>{% endif %}
+  {% if tr_start or tr_end %}<td colspan="{{ colspan }}">{% endif %}
+  <div class="control-group">
+    <label class="control-label">{{ label|t|safe }}</label>
+    <div class="controls">
+      <a class="{{ class }}" href="#">{{ trans and text|t|safe or text }}</a>
+    </div>
+  </div>
+  {% if tr_start or tr_end %}</td>{% endif %}
+  {% if tr_end %}</tr>{% endif %}
+{% endmacro %}
+
+{% macro js_focus(id) %}
+  $("#{{ id }}").focus();
+{% endmacro %}
+
+{% macro js_popover(id) %}
+  <script type='text/javascript'>
+    $('#{{ id }}').popover()
+  </script>
+{% endmacro %}
+
+{% macro destroy_confirm(id, msg='are_you_sure_to_delete') %}
+  <script type='text/javascript'>
+    $(function () {
+      $("#{{ id }}").click(function () {
+        if (confirm("{{ msg|t|safe }}")) {
+          return true;
+        };
+        return false;
+      });
+    });
+  </script>
+{% endmacro %}
+
+{% macro table_header(headers=[], trans=true, use_index=true, border=true, colspan=1) %}
+  <table class="table table-striped{{ border and ' table-bordered' or '' }}">
+    <thead>
+      <tr>
+        {% if use_index %}<th>#</th>{% endif %}
+        {% for head in headers %}
+        <th colspan="{{ colspan }}">{{ (trans and head|t|safe) or head }}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+{% endmacro %}
+
+{% macro table_footer() %}
+    </tbody>
+  </table>
+{% endmacro %}
+
+{% macro render_td(text, safe=false) %}
+  {% if safe %}
+    <td>{{ text|safe }}</td>
+  {% else %}
+    <td>{{ text }}</td>
+  {% endif %}
+{% endmacro %}
+
+{% macro accordion_header(title='other') %}
+  <div class="accordion" id="accordion">
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse"
+          data-parent="#accordion" href="#contact">{{ title|t|safe }}</a>
+      </div>
+      <div id="contact" class="accordion-body collapse" style="height: 0px;">
+        <div class="accordion-inner">
+{% endmacro %}
+
+{% macro accordion_footer() %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endmacro %}
+
+{% macro js_role_select() %}
+$('#role').change(function() {
+  $.ajax({
+    url: "{{ url_for('permissions.change_role') }}",
+    type: "GET",
+    cache: false,
+    dataType: "json",
+    data: {role: $(this).val()},
+    success: function(data){
+      var s = $('#department');
+      s.empty();
+      for(var i = 0; i < data.choices.length; i++){
+        s.append('<option value="' + data.choices[i][0] + '">' + data.choices[i][1] + '</option>');
+      }
+    }
+  });
+});
+{% endmacro %}
+
+{% macro js_code(id='code', id2=none) %}
+  {% for k in ('department', 'project') %}
+    $('#{{ k }}').change(function() {
+      $.ajax({
+        url: "{{ url_for('buys.js_code') }}",
+        type: "GET",
+        cache: false,
+        dataType: "json",
+        data: {department: $('#department').val(), project: $('#project').val()},
+        success: function(data){
+          var s = $('#{{ id }}');
+          s.empty();
+          {% if id2 %}
+            $('#{{ id2 }}').removeClass("label label-info");
+          {% endif %}
+          for(var i = 0; i < data.choices.length; i++){
+            s.append('<option value="' + data.choices[i][0] + '">' + data.choices[i][1] + '</option>');
+          }
+        }
+      });
+    });
+  {% endfor %}
+{% endmacro %}
+
+{% macro js_date(dates) %}
+  {% for date in dates %}
+  $('#{{ date }}').datepicker(
+      { changeMonth: true,
+        changeYear: true,
+        showWeek: true,
+        weekHeader: "{{ 'week'|t|safe }}",
+        prevText: "{{ 'prev_month'|t|safe }}",
+        nextText: "{{ 'next_month'|t|safe }}",
+        dateFormat: 'yy-mm-dd',
+      }
+    );
+  {% endfor %}
+{% endmacro %}
+
+{% macro js_show_desc(id1='code', id2='code-desc', url='buys.js_code_desc', input_field=none) %}
+  $('#{{ id1 }}').change(function() {
+    $.ajax({
+      url: "{{ url_for(url) }}",
+      type: "GET",
+      cache: false,
+      dataType: "json",
+      data: {text: $(this).val()},
+      success: function(data){
+        $('#{{ id2 }}').text(data.desc);
+        if(data.desc){
+          $('#{{ id2 }}').addClass("label label-info");
+        }else{
+          $('#{{ id2 }}').removeClass("label label-info");
+        }
+        {% if input_field %}
+          $('#{{ input_field }}').val(data.input_value);
+        {% endif %}
+      }
+    });
+  });
+{% endmacro %}
+
+{% macro js_check_date(id1='buy_date', id2='date-error') %}
+  $('#{{ id1 }}').change(function() {
+    $.ajax({
+      url: "{{ url_for('home.js_check_date') }}",
+      type: "GET",
+      cache: false,
+      dataType: "json",
+      data: {date: $(this).val()},
+      success: function(data){
+        $('#{{ id2 }}').text(data.error);
+      }
+    });
+  });
+{% endmacro %}
+
+{% macro js_autocomplete(id, url='iohistory.js_autocomplete', kind='') %}
+  $('#{{ id }}').autocomplete({
+    source: "{{ url_for(url, kind=kind) }}",
+    minLength: 0,
+    delay: 0
+  });
+{% endmacro %}
+
+{% macro export_form(form, fields=[], checked=[], legend='export', url=none) %}
+{% if checked|length == 0 or fields|length == checked|length %}
+  {% set all_checked = " checked" %}
+{% endif %}
+{{ form_header(form, legend=legend|t|safe) }}
+  <table width="100%">
+    <thead>
+      <tr>
+        <td colspan="4"></td>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in fields|batch(4) %}
+        <tr>
+          {% for col in row %}
+          <td>
+            <input type="checkbox" class="exporting" name="dbkey"{{ all_checked or (col[1] in checked and " checked" or '') }} value="{{ col[1] }}"> {{ col[0]|t|safe }}
+          </td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+      <tr>
+        <td colspan="4"><hr /></td>
+      </tr>
+      <tr>
+        <td colspan="4">
+          <input type="checkbox" name="allornone"{{ all_checked or '' }}>
+          <strong>{{ 'all_or_none'|t|safe }}</strong>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  {{ submit_field('export', url=url or url_for('.index')) }}
+  {{ form_footer() }}
+{% endmacro %}
+
+{% macro export_js(name='allornone', class='exporting') %}
+  $("input[name='{{ name }}']").click(function(){
+    if($(this).is(":checked") == true){
+      $("input[class*='{{ class }}']").each(function(){
+        $(this).attr("checked", true);
+      });
+    }else{
+      $("input[class*='{{ class }}']").each(function(){
+        $(this).attr("checked", false);
+      });
+    }
+  });
+{% endmacro %}
+
+{% macro query_reset_click(request, btn='query-reset-btn', ids=[]) %}
+  $('#{{ btn }}').click(function() {
+    {% for k in ids %}
+      $('#{{ k }}').val('');
+    {% endfor %}
+    window.location.href = "{{ request.path }}";
+    return false;
+  });
+{% endmacro %}
+
+{% macro js_upload(id='attachments', remove='delete', accept='gif|jpg|png|bmp') %}
+  $('#{{ id }}').MultiFile({
+    accept:'{{ accept }}',
+    STRING: {
+      remove:'<span class="btn btn-danger">{{ remove|t }}</span>',
+      selected:'{{ "selected_file"|t }}: $file',
+      denied:'{{ "invalid_format"|t }} $ext!',
+      duplicate:'{{ "already_selected"|t }}:\n$file!'
+    }
+  });
+{% endmacro %}
+
+{% macro js_delete_file(id, url='home.js_delete_file', msg='are_you_sure_to_delete') %}
+  <script type='text/javascript'>
+    $("#del-{{ id }}").click(function() {
+      if(confirm('{{ msg|t }}')) {
+        $.ajax({
+          url: "{{ url_for(url) }}",
+          type: "GET",
+          cache: false,
+          dataType: "json",
+          data: {id: "{{ id }}"},
+          success: function(data){
+            $('#{{ id }}').remove();
+            $('#del-{{ id }}').remove();
+          }
+        });
+      }
+    });
+  </script>
+{% endmacro %}
+
+{% macro show_pictures(pictures) %}
+  {% for im in pictures %}
+    <a href="{{ url_for('static', filename=im.link) }}" target="_blank"><img src="{{ url_for('static', filename=im.link) }}" alt="{{ im.name }}" width="{{ im.img_width }}" height="{{ im.img_height }}" title="{{ 'upload_image_title'|t(name=im.name, size=im.filesize, width=im.width, height=im.height)|safe }}" /></a>
+    <br />
+  {% endfor %}
+{% endmacro %}
+
+{% macro show_thumbnail(image_link=none, url=none) %}
+  <div class="span2">
+    {% if image_link %}
+      <a href="{{ url or url_for('static', filename=image_link) }}" class="thumbnail">
+        <img src="{{ url_for('static', filename=image_link) }}" width="160" height="120" alt="" />
+      </a>
+    {% else %}
+      <a href="{{ url or '#' }}" class="thumbnail">
+        <img src="{{ url_for('static', filename='img/160x120.gif') }}" alt="" />
+      </a>
+    {% endif %}
+  </div>
+{% endmacro %}
+
+{% macro js_timepicker(id='time') %}
+  $('#{{ id }}').timepicker({
+    timeOnlyTitle: "{{ '.choose_time'|t }}",
+    currentText: "{{ '.current_time'|t }}",
+    closeText: "{{ '.finish'|t }}",
+    timeText: "{{ '.time'|t }}",
+    hourText: "{{ '.hour'|t }}",
+    minuteText: "{{ '.minute'|t }}",
+    hourGrid: 4,
+    minuteGrid: 10,
+    hour: 0,
+    minute: 0
+  });
+{% endmacro %}

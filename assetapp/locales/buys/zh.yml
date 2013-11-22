@@ -1,0 +1,31 @@
+track_no: 追踪编号
+custom_no: 海关号
+po: "PO#"
+
+buy_date: 收货日期
+workflow: 流程
+incomings_list: 收货清单
+equipment_incoming: 设备收货
+sparepart_incoming: 备品收货
+
+finished: 完成
+store_incomings: 货仓收货
+incoming_details: 收货详情
+record_user: 记录人
+
+rejected: 拒绝签收
+confirmed: 签收
+refused_assign_flex_id: 拒绝分配伟创力编号
+assigned: 分配伟创力编号
+wait_for_confirm: 待确认
+confirm: 确认
+assign: 分配ID
+accept: 接受
+reject: 拒收
+incoming_confirm: 签收确认
+rejected_the_incoming: 拒绝签收
+accepted_the_incoming: 确认签收
+wait_for_assign_id: 待分配ID
+assign_flex_id: 分配ID
+reject_remark: 拒收说明
+required_if_remark: 如果拒绝请说明原因

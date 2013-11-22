@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  {{ '.set_stock'|t }}
+{% endblock %}
+
+{% block body %}
+  <p>
+    {{ primary_link(url_for('.index'), text='back', size='large') }}
+  </p>
+  {{ form_header(form, legend='.set_stock') }}
+  {{ label_field('.store_qty', text='%s / %s'|format(sp.store_good, sp.store_bad), trans=false) }}
+  {{ label_field('.outside_qty', text='%s / %s'|format(sp.out_good, sp.out_bad), trans=false) }}
+  {{ label_field('.buy_qty', text='%s / %s'|format(sp.buy_good, sp.buy_bad), trans=false) }}
+  {{ form_field(form.max_store) }}
+  {{ form_field(form.is_local, placeholder='.vendor_type_pl'|t|safe) }}
+  {{ form_field(form.lead_time, placeholder='.lead_time_pl'|t|safe, as_hint=true) }}
+  {{ form_field(form.mcq) }}
+  {{ form_field(form.min_store, placeholder='.min_store_pl'|t|safe, as_hint=true) }}
+  {{ submit_field(submit='submit', url=url_for('.index')) }}
+  {{ form_footer() }}
+{% endblock %}

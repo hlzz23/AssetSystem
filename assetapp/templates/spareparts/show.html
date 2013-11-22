@@ -1,0 +1,65 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  {{ '.sparepart_details'|t }}
+{% endblock %}
+
+{% block body %}
+  {{ primary_link(request.referrer or url_for('.index'), text='back', size='large') }}
+  <hr />
+  {{ table_header(['%s (%s)'|format(sp.code, sp.name)], trans=false, use_index=false, border=false, colspan="4") }}
+  <tr>
+    <th>{{ 'department'|t }}</th><td>{{ sp.department }}</td>
+    <th>{{ 'project'|t }}</th><td>{{ sp.project }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'name'|t }}</th><td colspan="3">{{ sp.name }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'pn'|t }}</th><td>{{ sp.pn }}</td>
+    <th>{{ 'location'|t }}</th><td>{{ sp.location }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'model'|t }}</th><td>{{ sp.model }}</td>
+    <th>{{ '.prod_model'|t }}</th><td>{{ sp.prod_model}}</td>
+  </tr>
+  <tr>
+    <th>{{ '.low_limit'|t }}</th><td>{{ sp.min_store }}</td>
+    <th>{{ '.high_limit'|t }}</th><td>{{ sp.max_store }}</td>
+  </tr>
+  <tr>
+    <th>{{ '.store_good'|t }}</th>
+    <td>{{ span_badge(sp.store_good, 'success') }}</td>
+    <th>{{ '.store_bad'| t}}</th>
+    <td>{{ span_badge(sp.store_bad, 'important') }}</td>
+  </tr>
+  <tr>
+    <th>{{ '.out_good'|t }}</th>
+    <td>{{ span_badge(sp.out_good, 'success') }}</td>
+    <th>{{ '.out_bad'|t }}</th>
+    <td>{{ span_badge(sp.out_bad, 'important') }}</td>
+  </tr>
+  <tr>
+    <th>{{ '.buy_good'|t }}</th>
+    <td>{{ span_badge(sp.buy_good, 'success') }}</td>
+    <th>{{ '.buy_bad'|t }}</th>
+    <td>{{ span_badge(sp.buy_bad, 'important') }}</td>
+  </tr>
+  <tr>
+    <th>{{ '.vendor'|t }}</th><td>{{ sp.vendor }}</td>
+    <th>{{ '.unit_price'|t }}</th><td>$ {{ sp.unit_price }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'description'|t }}</th><td colspan="3">{{ sp.desc }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'remark'|t }}</th><td colspan="3">{{ sp.remark }}</td>
+  </tr>
+  <tr>
+    <th colspan="4">{{ 'pictures'|t }}</th>
+  </tr>
+  <tr>
+    <td colspan="4">{{ show_pictures(sp.uploads) }}</td>
+  </tr>
+  {{ table_footer() }}
+{% endblock %}

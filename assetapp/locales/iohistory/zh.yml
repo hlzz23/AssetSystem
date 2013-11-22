@@ -1,0 +1,63 @@
+to_project: 到项目
+to_where: 到哪里
+back_user: 入库人
+hard_copy: 纸档记录
+
+out_user: 领出人
+in_user: 返还人
+out_date: 出库日期
+in_date: 入库日期
+equipment_out: 设备出库
+equipment_in: 设备入库
+sparepart_out: 备品出库
+sparepart_in: 备品入库
+enter_code: 手输编号
+
+date: 日期
+keyid: 编号
+io_date: 出/入库日期
+io_time: 时间
+from: 从...
+to: 到...
+from_to: "从 ... 到 ..."
+back_location: 返还到位置
+
+equipment_out_successfully: 设备出库成功
+equipment_in_successfully: 设备入库成功
+sparepart_out_successfully: 备品出库成功
+sparepart_in_successfully: 备品入库成功
+
+was_borrowed_from: 被 <span class="label">{to}</span> 从 <span class="label">{from}</span> 领出
+was_returned_by: 被 <span class="label">{from}</span> 归还到 <span class="label">{to}</span>
+out_to_where: 到 <span class="label label-inverse">{project}, {where}, {line}</span>
+return_to_where: <span class="label label-inverse">{location}</span> 位置
+
+iohistory: 出/入库历史
+iohistory_list: 出/入库历史
+iohistory_details: 出/入库详情
+event: 事件描述
+
+direction: 方向
+destination: 目的地
+"Store to outside": 仓库到库外
+"Outside to store": 库外到仓库
+
+not_in_store: 不在仓库
+already_in_store: 已经在仓库
+
+instore_list: 入库历史
+outstore_list: 出库历史
+
+export_iohistory: 导出出/入库历史
+to_line: 到线别
+item_code: "ID#"
+into_store: 入库
+out_store: 出库
+not_enough: 数量不足
+
+choose_time: 选择时间
+current_time: 当前时间
+finish: 完成
+time: 时间
+hour: 小时
+minute: 分钟

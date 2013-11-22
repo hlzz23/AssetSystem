@@ -1,0 +1,72 @@
+{% extends 'notifications/base.html' %}
+{% from 'helpers.html' import table_header, table_footer %}
+
+{% block body %}
+  <p>
+    <h2>{{ 'notifications.incominging_arrived'|t }}<br />
+      <a href="{{ url_for('buys.confirm', id=buy.id) }}">
+        {{ 'notifications.please_click_to_confirm'|t }}
+      </a>
+    </h2>
+  </p>
+  {{ table_header(['details'], use_index=false, colspan=2) }}
+  <tr>
+    <th>{{ 'kind'|t }}</th><td>{{ buy.kind_name|t }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'buys.record_user'|t }}</th>
+    <td>{{ buy.login }}({{ buy.login_id or '' }})</td>
+  </tr>
+  <tr>
+    <th>{{ 'department'|t }}</th><td>{{ buy.department }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'project'|t }}</th><td>{{ buy.project }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'price'|t }}</th><td>$ {{ buy.price }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'buys.buy_date'|t }}</th><td>{{ buy.date }}</td>
+  </tr>
+  {% if buy.is_sparepart %}
+    <tr>
+      <th>{{ 'spareparts.code'|t }}</th><td>{{ buy.asset.code }}</td>
+    </tr>
+    <tr>
+      <th>{{ 'description'|t }}</th><td>{{ buy.asset.desc }}</td>
+    </tr>
+    <tr>
+      <th>{{ 'good_qty'|t }}</th><td>{{ buy.asset.good }}</td>
+    </tr>
+    <tr>
+      <th>{{ 'bad_qty'|t }}</th><td>{{ buy.asset.bad }}</td>
+    </tr>
+    {% elif buy.is_equipment %}
+      <tr>
+        <th>{{ 'sn'|t }}</th><td>{{ buy.asset.sn }}</td>
+      </tr>
+      <tr>
+        <th>{{ 'equipment.warranty_start'|t }}</th><td>{{ buy.asset.ws }}</td>
+      </tr>
+      <tr>
+        <th>{{ 'equipment.warranty_end'|t }}</th><td>{{ buy.asset.we }}</td>
+      </tr>
+      <tr>
+        <th>{{ 'status'|t }}</th>
+        <td>{{ (buy.asset.is_good and 'good' or 'bad')|t }}</td>
+      </tr>
+      <tr>
+        <th>{{ 'location'|t }}</th>
+        <td>{{ buy.asset.location }}</td>
+      </tr>
+      <tr>
+        <th>{{ 'description'|t }}</th><td>{{ buy.asset.desc }}</td>
+      </tr>
+
+    {% endif %}
+    <tr>
+      <th>{{ 'remark'|t }}</th><td>{{ buy.remark }}</td>
+    </tr>
+  {{ table_footer() }}
+{% endblock %}

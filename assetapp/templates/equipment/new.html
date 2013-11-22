@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+{% from 'equipment/_form.html' import render_form %}
+
+{% block title %}
+  {{ '.add_equipment'|t }}
+{% endblock %}
+
+{% block body %}
+  <p>
+    {{ primary_link(url_for('.index'), text='back', size='large') }}
+  </p>
+  {{ render_form(form, legend='.add_equipment') }}
+{% endblock %}
+
+{% block js %}
+  {{ js_date(['ws', 'we', 'req_date', 'prod_date']) }}
+  {{ js_upload(id='pictures') }}
+{% endblock %}

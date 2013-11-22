@@ -1,0 +1,13 @@
+idle_equipment: 闲置设备
+equipment_details: 设备详情
+idle_date: 闲置日期
+idles_list: 闲置列表
+idle: 闲置
+idleed_successfully: 设备被设置为闲置状态
+already_idleed: 已经闲置
+
+recall_equipment: 召回闲置设备
+recall: 召回
+recalled_successfully: 闲置设备召回成功
+recall_date: 召回日期
+equipment_information: 设备信息

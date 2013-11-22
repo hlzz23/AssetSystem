@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  {{ 'imported_result'|t }}
+{% endblock %}
+
+{% block body %}
+  {{ show_import_info(error, file_name) }}
+  <p>
+    {{ primary_link(url_for('.index'), text='spareparts.sparepart_list', size='large') }}
+    {{ warning_link(url_for('.import_spareparts', kind=kind), text='back', size='large') }}
+  </p>
+  {% if error %}
+    {{ show_permission_info(g) }}
+  {% endif %}
+  {{ show_import_errors(errors) }}
+
+{% endblock %}

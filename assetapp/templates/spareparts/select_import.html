@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  {{ '.which_import_do_you_want'|t }}
+{% endblock %}
+
+{% block body %}
+  <p>
+    {{ primary_link(url_for('.index'), text='back', size='large') }}
+  </p>
+  <div class="well">
+    <p>
+      {{ warning_link(url_for('.import_spareparts', kind=0), text='.bulk_update_qty', size='large') }}
+    </p>
+    <p>
+      {{ primary_link(url_for('.import_spareparts', kind=1), text='.bulk_import', size='large') }}
+    </p>
+    <p>
+      {{ success_link(url_for('.import_spareparts', kind=2), text='.bulk_update_price', size='large') }}
+    </p>
+  </div>
+{% endblock %}

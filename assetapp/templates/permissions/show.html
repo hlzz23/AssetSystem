@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  {{ '.authorization_details'|t }}
+{% endblock %}
+
+{% block body %}
+  {{ primary_link(url_for('.index'), text='back', size='large') }}
+  <hr />
+  {{ table_header([permission.group], trans=false, use_index=false, border=false) }}
+  <tr>
+    <th>{{ 'role'|t }}</th><td>{{ ('.' + permission.role)|t }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'department'|t }}</th><td>{{ permission.dept_name|t }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'projects'|t }}</th><td>{{ permission.projects|join(', ') }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'users'|t }}</th>
+    <td>
+      {% for user in permission.users %}
+        &raquo; {{ user.nick_name }}<br />
+      {% endfor %}
+    </td>
+  </tr>
+
+  {{ table_footer() }}
+{% endblock %}

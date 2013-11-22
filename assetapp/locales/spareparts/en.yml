@@ -1,0 +1,75 @@
+code: Code
+number: ID
+add_code: Add Part
+create_code: Create Part
+edit_code: Edit Part
+prod_model: Product Model
+qty: QTY
+
+buy_good: Buy Good QTY
+buy_bad: Buy Bad QTY
+buy_qty: Buy QTY
+
+outside: Outside
+out_good: Out Good QTY
+out_bad: Out Bad QTY
+outside_qty: Outside QTY
+
+inside: Inside
+store_good: Store Good QTY
+store_bad: Store Bad QTY
+store_qty: Store QTY
+
+month_consumed_qty: Month Consumed QTY
+next_purchase_qty: Next Purchase QTY
+consumed_qty_during_purchase: Consumed QTY During Purchase
+qty_info: QTY Information
+sparepart_detail: Sparepart Detail
+sparepart_details: Sparepart Details
+
+limit: Limit
+alert_value: Alert Value
+limit_value: Limit Value
+store_limit: Store Limit
+low_limit: Low Limit
+high_limit: High Limit
+min_alert: Min Alert
+max_alert: Max Alert
+all_store: All
+ok_store: Normal
+danger_store: Low QTY
+
+set_stock_successfully: Set Stock successfully
+max_store: Max Store
+min_store: Min Store
+min_store_pl: "Min Store = Month_Consumed_QTY / 4 * (1 ~ 2) (by weeks, depends on vendor location)"
+
+vendor_type: Vendor Type
+vendor_type_pl: "Effects Min Store Calculation<br />======================<br />1) Local Vendor: At least one week consume qty<br />2) Oversea Vendor: At least two weeks consume qty"
+
+lead_time: Lead Time (weeks)
+lead_time_pl: "Effects Consumed_QTY_During_Purchase (CQDP) and Next Purchase QTY (NPQ, by weeks)<br />=====================================<br />1) CQDP = Month_Consumed_QTY / 4 * Lead_Time<br />2) NPQ = CQDP - Store_QTY + Min_Store + Month_Consumed_QTY (lead time < one month)<br />3) NPQ = CQDP - Store_QTY + Min_Store + CQDP (lead time >= one month)"
+calc_method: Calculate Method
+set_stock: Set Stock
+local: Local Vendor
+oversea: Oversea
+formula: By Formula
+manual: Manually Input
+
+export_sparepart: Export Part List
+code_department_project: "ID# | Department | Project"
+name_or_code: "Name, Code, Model"
+
+unit_price: Unit Price(USD)
+total_price: Total Price(USD)
+vendor: Vendor
+
+import_spareparts: "Import Spare Part..."
+bulk_update_qty: "Bulk Update QTY (Asset User Only)"
+bulk_update_price: "Bulk Update Price (Asset User or Store User Only)"
+bulk_import: "Bulk Import Spare Part (Store User Only)"
+sparepart_list: Spare Part List
+start_update: Start Update
+update_sparepart_qty: Update Spare Part QTY
+update_sparepart_price: Update Spare Part Unit Price
+which_import_do_you_want: Select import type

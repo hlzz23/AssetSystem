@@ -1,0 +1,14 @@
+{% from 'helpers.html' import form_header, form_footer, form_field, submit_field %}
+
+{% macro render_form(form, legend, submit='add') %}
+  {{ form_header(form, legend=legend) }}
+  {{ form_field(form.is_active, required=1) }}
+  {{ form_field(form.group) }}
+  {{ form_field(form.role) }}
+  {{ form_field(form.department) }}
+  {{ form_field(form.department_text, placeholder='.enter_department_manually'|t) }}
+  {{ form_field(form.projects, class=" multiselect", required=1) }}
+  {{ form_field(form.remark) }}
+  {{ submit_field(submit=submit, url=url_for('.index')) }}
+  {{ form_footer() }}
+{% endmacro %}

@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  {{ 'projects'|t }}
+{% endblock %}
+
+{% block body %}
+  <div class="alert alert-info">
+    {{ 'only_what_user_can_manage_this_page'|t(user='users.asset_leader'|t)|safe }}
+  </div>
+  {% if g.user.can_add_project %}
+    {{ warning_link(url_for('.new'), text='.add_project', size='large') }}
+  {% endif %}
+  {% if projects.count %}
+    {{ projects.pagination.info|safe }}
+    {{ projects.pagination.links|safe }}
+    {{ table_header(['project', 'remark', 'action']) }}
+    {% for project in projects %}
+      <tr>
+        <td>{{ loop.index + projects.skip }}</td>
+        <td>{{ project.name|hl_query(keyword)|safe }}</td>
+        <td>{{ project.remark }}</td>
+        <td>
+          {% if g.user.can_edit_project(project) %}
+            {{ edit_link(url_for('.edit', id=project.id)) }}
+          {% endif %}
+          {% if project.canbe_removed and g.user.can_remove_project(project) %}
+            {{ delete_link(url_for('.destroy', id=project.id), id=project.id) }}
+            {{ destroy_confirm(project.id) }}
+          {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+    {{ table_footer() }}
+    {{ projects.pagination.links|safe }}
+  {% endif %}
+{% endblock %}

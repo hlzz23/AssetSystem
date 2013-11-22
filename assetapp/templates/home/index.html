@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  {{ 'home'|t }}
+{% endblock %}
+
+{% block body %}
+  <div class="hero-unit">
+    {{ '.we_are_managing'|t|safe }}<br />
+    <p>
+      <h2>
+        &raquo;
+        <a href="{{ url_for('projects.index') }}">
+          {{ 'projects'|t }}: <b>{{ psum }}</b>
+        </a><br />
+        &raquo;
+        <a href="{{ url_for('equipment.index') }}">
+          {{ 'equipment'|t }}: <b>{{ '{:,}'.format(esum) }}</b>
+        </a><br />
+        &raquo;
+        <a href="{{ url_for('spareparts.index') }}">
+          {{ 'sparepart'|t }}: <b>{{ '{:,}'.format(spsum) }}</b>
+        </a><br />
+      </h2>
+    </p>
+  </div>
+
+{% endblock %}

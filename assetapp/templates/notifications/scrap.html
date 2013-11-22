@@ -1,0 +1,56 @@
+{% extends 'notifications/base.html' %}
+{% from 'helpers.html' import table_header, table_footer %}
+
+{% block body %}
+  <p>
+    <h2>{{ 'notifications.asset_was_scraped'|t }}</h2>
+  </p>
+  {{ table_header(['details'], use_index=false, colspan=2) }}
+  <tr>
+    <th>{{ 'buys.record_user'|t }}</th>
+    <td>{{ scrap.login }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'transfers.handle_user'|t }}</th><td>{{ scrap.user }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'scraps.scrap_date'|t }}</th><td>{{ scrap.date }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'department'|t }}</th><td>{{ scrap.asset.department }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'project'|t }}</th><td>{{ scrap.asset.project }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'name'|t }}</th><td>{{ scrap.asset.name }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'equipment.flex_id'|t }}</th><td>{{ scrap.asset.flex_id }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'equipment.fixed_id'|t }}</th><td>{{ scrap.asset.fixed_id }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'sn'|t }}</th><td>{{ scrap.asset.sn }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'model'|t }}</th><td>{{ scrap.asset.model }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'equipment.track_no'|t }}</th><td>{{ scrap.asset.tn }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'equipment.custom_no'|t }}</th><td>{{ scrap.asset.cn }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'equipment.prod_date'|t }}</th><td>{{ scrap.asset.prod_date }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'description'|t }}</th><td>{{ scrap.asset.desc }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'remark'|t }}</th><td>{{ scrap.remark }}</td>
+  </tr>
+  {{ table_footer() }}
+{% endblock %}

@@ -1,0 +1,131 @@
+.home .home a,
+.home .home a:hover,
+.users .users a,
+.users .users a:hover,
+.projects .projects a,
+.projects .projects a:hover,
+.navbar .nav li a:hover {
+    color: #ffffff !important;
+    text-decoration: none;
+    background-color: #222222;
+}
+
+.subnav {
+    width: 100%;
+    height: 36px;
+    background-color: #EEE;
+    background-repeat: repeat-x;
+    background-image: -webkit-linear-gradient(top, whiteSmoke 0%,#EEE 100%);
+    background-image: -ms-linear-gradient(top, whiteSmoke 0%,#EEE 100%);
+    background-image: -o-linear-gradient(top, whiteSmoke 0%,#EEE 100%);
+    background-image: linear-gradient(top, whiteSmoke 0%,#EEE 100%);
+    border: 1px solid #E5E5E5;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    margin-top: -20px;
+    margin-bottom: 0px;
+    /*position: fixed;*/
+    overflow: hidden;
+    float: left;
+    min-width: 700px;
+}
+.nav.nav-pills li a {
+    color: #08c;
+    text-decoration: none;
+    display: block;
+    margin: 0;
+    padding-top: 11px;
+    padding-bottom: 11px;
+    border-left: 1px solid whiteSmoke;
+    border-right: 1px solid #E5E5E5;
+    border-bottom: 1px solid #E5E5E5;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+}
+
+.nav.nav-pills li.active a,
+.nav.nav-pills li a:hover {
+    color: #777;
+    background-color: #E9E9E9;
+    border-right-color: #DDD;
+    -webkit-box-shadow: inset 0 3px 5px rgba(0,0,0,.05);
+    -moz-box-shadow: inset 0 3px 5px rgba(0,0,0,.05);
+    box-shadow: inset 0 3px 5px rgba(0,0,0,.05);
+}
+.nav.nav-pills li.active a:hover {
+    cursor: default;
+}
+.pagination-page-info {
+    padding: .6em;
+    padding-left: 0;
+    width: 40em;
+    margin: .5em;
+    margin-left: 0;
+    font-size: 12px;
+}
+.pagination-page-info b {
+    color: black;
+    background: #6aa6ed;
+    padding-left: 2px;
+    padding: .1em .25em;
+    font-size: 150%;
+}
+
+.hl-query {
+    background: yellow;
+    font-weight: bold;
+}
+.status-active {
+    color: #5bb75b;
+}
+.status-disabled {
+    color: #da4f49;
+}
+h4 {
+    margin: 0;
+    padding: 3px;
+    background: #777;
+    color: white;
+    text-align: center;
+    border: 1px #333 solid;
+    -webkit-border-radius: 4px 4px 0px 0px;
+    -moz-border-radius: 4px 4px 0px 0px;
+    border-radius: 4px 4px 0px 0px;
+}
+.small-caps {
+    font: small-caps 18px/18px "Helvetica", "Times New Roman", serif;
+    /*font-variant: small-caps;*/
+}
+
+#gotop{
+    width:60px;
+    height:60px;
+    bottom:50px;
+    right:40px;
+    -webkit-border-radius:10px 10px 10px 10px;
+    -moz-border-radius:10px 10px 10px 10px;
+    border-radius:10px 10px 10px 10px;
+    text-decoration:none;
+    display:none;
+    background-color:#999999;
+    position:fixed;
+}
+#gotop span{
+    display:block;
+    width:60px;
+    color:#dddddd;
+    font-size:40px;
+    text-align:center;
+    margin-top:14px;
+}
+#gotop span:hover{
+    color:#cccccc;
+}
+
+ /*css for timepicker */
+/*.ui-timepicker-div .ui-widget-header { margin-bottom: 8px; padding-top: 100px;}
+.ui-timepicker-div dl { text-align: left; }
+.ui-timepicker-div dl dt { height: 25px; margin-bottom: -25px; }
+.ui-timepicker-div dl dd { margin: 10px 10px 10px 65px; }
+.ui-timepicker-div td { font-size: 100%; }
+.ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }*/

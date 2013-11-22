@@ -1,0 +1,6 @@
+#!/bin/bash
+
+uwsgi --reload /tmp/flexasset.pid
+#kill -TERM `cat /tmp/flexasset.pid`
+# chmod +x /var/www/flexasset/uwsgi/uwsgi.run
+# /var/www/flexasset/uwsgi/uwsgi.run

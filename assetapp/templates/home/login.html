@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+  {{ form_header(form, legend='user_login') }}
+  {{ form_field(form.login, placeholder='case_not_sensitive'|t) }}
+  {{ form_field(form.password) }}
+  {{ submit_field(submit='login', url=url_for('.index')) }}
+  {{ form_footer() }}
+{% endblock %}
+
+{% block js %}
+  {{ js_focus('login') }}
+{% endblock %}

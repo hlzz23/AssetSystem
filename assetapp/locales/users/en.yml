@@ -1,0 +1,29 @@
+add_user: Add User
+edit_user: Edit User
+is_active: "Is Actived?"
+disabled: Disabled
+active: Active
+contact_info: Contacts
+for_contact: For Contact
+profile: Profile
+phone_and_gsm: Phone
+authorize: Authorize
+root: root
+asset_leader: Asset Leader
+asset_user: Asset User
+store_user: Store User
+project_leader: Project Leader
+cal_user: Calibration User
+information: Information
+
+buy_mail: "Send new incoming mail?"
+io_mail: "Send store in/out mail?"
+tf_mail: "Send transfer mail?"
+idle_mail: "Send idle mail?"
+scrap_mail: "Send scrap mail?"
+alarm_mail: "Send QTY alarm mail?"
+notify_mail: "Send incoming notify mail?"
+permission_information: 'If you have no permission, please contact the <span class="label label-success">Asset Leader</span> for help'
+leave_blank_without_change: "Leave blank without change"
+your_password_was_reset: Your password was reset
+please_use_new_password: Please use new password to login

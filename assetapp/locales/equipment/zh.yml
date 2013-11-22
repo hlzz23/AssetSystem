@@ -1,0 +1,39 @@
+
+source_text: 或手动输入来源
+name: 设备名
+
+equipment_list: 设备清单
+add_equipment: 添加设备
+edit_equipment: 编辑设备
+update_equipment: 更新设备
+equipment_details: 设备详情
+
+is_good: "好或坏?"
+is_instore: "仓库内?"
+instore: 仓库内
+outstore: 仓库外
+
+req_user: 申请人
+req_date: 申请日期
+req_remark: 申请备注
+
+need_cal: 需要校验
+need_pm: 需要保养
+
+prod_date: 生产日期
+fa_equipment: FA设备
+faed_equipment: FA设备
+scraped_equipment: 报废的设备
+transfered_equipment: 转出的设备
+idleed_equipment: 闲置的设备
+
+warranty_start: 保修开始
+warranty_end: 保修结束
+
+flex_id: 伟创力编号
+fixed_id: 固定资产编号
+
+export_equipment: 导出设备清单
+change_status: 更改状态
+
+import_equipment: 导入设备

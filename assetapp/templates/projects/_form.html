@@ -1,0 +1,9 @@
+{% from 'helpers.html' import form_header, form_field, submit_field, form_footer %}
+
+{% macro render_form(form, legend, submit='add') %}
+  {{ form_header(form=form, legend=legend) }}
+  {{ form_field(form.name) }}
+  {{ form_field(form.remark) }}
+  {{ submit_field(submit=submit, url=url_for('.index')) }}
+  {{ form_footer() }}
+{% endmacro %}

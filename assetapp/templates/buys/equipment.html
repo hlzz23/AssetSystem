@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+{% from 'buys/_form.html' import render_form %}
+
+{% block title %}
+  {{ '.equipment_incoming'|t }}
+{% endblock %}
+
+{% block body %}
+  <p>
+    {{ primary_link(url_for('.index'), text='.incomings_list', size='large') }}
+  </p>
+  {{ form_header(form, legend='.equipment_incoming') }}
+  <table width="100%">
+    <tr><td colspan="4"><br /></td></tr>
+    {{ render_form(form) }}
+
+    {{ form_field(form.sn, tr_start=true) }}
+    {{ form_field(form.name, tr_end=true) }}
+
+    {{ form_field(form.is_good, radio_inline=true, tr_start=true) }}
+    {{ form_field(form.location, tr_end=true) }}
+
+    {{ form_field(form.ws, tr_start=true) }}
+    {{ form_field(form.we, tr_end=true) }}
+
+    {{ form_field(form.desc, tr_start=true) }}
+    {{ form_field(form.remark, tr_end=true) }}
+  </table>
+  {{ submit_field(submit='submit', url=url_for('.index')) }}
+  {{ form_footer() }}
+{% endblock %}
+
+{% block js %}
+  {{ js_date(['date', 'ws', 'we']) }}
+  {{ js_check_date('date', 'date-error') }}
+{% endblock %}

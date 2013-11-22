@@ -1,0 +1,26 @@
+sparepart_in: 转入备品
+sparepart_out: 转出备品
+equipment_in: 转入设备
+equipment_out: 转出设备
+from_where: 从哪里
+to_where: 到哪里
+transfer_in: 转入
+transfer_out: 转出
+direction: 方向
+
+sparepart_transfer_in_successfully: 备品转入成功
+sparepart_transfer_out_successfully: 备品转出成功
+
+equipment_transfer_in_successfully: 设备转入成功
+equipment_transfer_out_successfully: 设备转出成功
+
+transfer_date: 转入/出日期
+transfer_list: 转入/出清单
+
+load: 激活
+load_equipment: 激活设备
+frozen: 冻结的设备
+
+in_date: 转入日期
+out_date: 转出日期
+export_transfers: 导出转入/出清单

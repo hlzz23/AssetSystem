@@ -1,0 +1,73 @@
+code: 备品编号
+number: 编号
+add_code: 添加备品
+create_code: 创建备品
+edit_code: 编辑备品
+prod_model: 产品型号
+
+buy_good: 购买数量(好)
+buy_bad: 购买数量(坏)
+buy_qty: 购买数量
+
+qty: 数量
+outside: 外
+out_good: 仓库外数量(好)
+out_bad: 仓库外数量(坏)
+outside_qty: 仓库外数量
+
+inside: 内
+store_good: 仓库内数量(好)
+store_bad: 仓库内数量(坏)
+store_qty: 仓库内数量
+
+month_consumed_qty: 月用量
+next_purchase_qty: 下次采购量
+consumed_qty_during_purchase: 采购过程需求量
+qty_info: 数量信息
+sparepart_detail: 备品详情
+sparepart_details: 备品详情
+
+limit: 警
+alert_value: 警戒值
+limit_value: 警戒值
+store_limit: 库存警戒
+low_limit: 下限
+high_limit: 上限
+min_alert: 最低报警
+max_alert: 最高报警
+all_store: 所有库存
+ok_store: 库存正常
+danger_store: 库存危险
+
+set_stock_successfully: 设置库存成功
+max_store: 最大库存
+min_store: 最小库存
+min_store_pl: 最少库存量 = 月用量 / 4 * (1 ~ 2) (以星期为单位, 取决于供应商位置)
+vendor_type: 供应商类型
+vendor_type_pl: "影响最少库存量的计算<br />======================<br />1) 对于内地的供应商最少库存为一个星期的用量<br />2) 对于海外的供应商最少库存为两个星期的用量"
+lead_time: 交货期(周)
+lead_time_pl: "影响采购过程需求量和下次采购数量的计算(以星期为单位)<br />=====================================<br />1) 采购过程需求量 = 月用量 / 4 * 交货期<br />2) 下次采购数量 = 采购过程需求量 - 库存量 + 最少库存量 + 一个月的用量 (交货期小于一个月)<br />3) 下次采购数量 = 采购过程需求量 - 库存量 + 最少库存量 + 采购过程的需求量 (交货期大于等于一个月)"
+calc_method: 计算方法
+set_stock: 设置库存
+local: 内地
+oversea: 海外
+formula: 通过公式
+manual: 手动输入
+
+export_sparepart: 导出备品清单
+code_department_project: "编号|部门|项目"
+name_or_code: "名称, 编号, 型号"
+
+unit_price: 单价(USD)
+total_price: 总价(USD)
+vendor: 供应商
+
+import_spareparts: "导入备品..."
+bulk_update_qty: "更新备品数量 (仅资产用户)"
+bulk_update_price: "更新备品单价 (仅资产用户或仓库用户)"
+bulk_import: "批量导入备品 (仅仓库用户)"
+sparepart_list: 备品清单
+start_update: 开始更新
+update_sparepart_qty: 更新备品数量
+update_sparepart_price: 更新备品单价
+which_import_do_you_want: 选择导入类型

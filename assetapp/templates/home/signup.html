@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  {{ 'signup'|t }}
+{% endblock %}
+
+{% block body %}
+  {{ form_header(form, legend='signup') }}
+  <table width="100%" border='0'>
+    <tr><td colspan="4"><br /></td></tr>
+    {{ form_field(form.login, tr_start=true) }}
+    {{ form_field(form.nick_name, tr_end=true) }}
+
+    {{ form_field(form.password, tr_start=true) }}
+    {{ form_field(form.password_again, tr_end=true) }}
+
+    {{ form_field(form.badge_id, tr_start=true) }}
+    {{ form_field(form.email, tr_end=true, placeholder='XX.XX@cn.flextronics.com') }}
+
+    {{ form_field(form.phone, tr_start=true) }}
+    {{ form_field(form.gsm, tr_end=true) }}
+
+    {{ form_field(form.short_no, tr_start=true) }}
+    {{ form_field(form.lang, tr_end=true) }}
+
+    {{ form_field(form.send_buy, tr_start=true, radio_inline=true, required=1) }}
+    {{ form_field(form.send_io, tr_end=true, radio_inline=true, required=1) }}
+
+    {{ form_field(form.send_tf, tr_start=true, radio_inline=true, required=1) }}
+    {{ form_field(form.send_idle, tr_end=true, radio_inline=true, required=1) }}
+
+    {{ form_field(form.send_scrap, tr_start=true, radio_inline=true, required=1) }}
+    {{ form_field(form.send_alarm, tr_end=true, radio_inline=true, required=1) }}
+
+    {{ form_field(form.send_notify,  tr_start=true, tr_end=true, colspan=4, radio_inline=true, required=1) }}
+
+    {{ submit_field(submit='signup', url=url_for('.index'), colspan=4) }}
+  </table>
+  {{ form_footer() }}
+{% endblock %}
+
+{% block js %}
+  {% if not form.errors %}
+    {{ js_focus('login') }}
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,33 @@
+{% from 'helpers.html' import form_field %}
+
+{% macro render_form(form, kind='0') %}
+  {{ form_field(form.department, tr_start=true) }}
+  {{ form_field(form.project, tr_end=true) }}
+
+  {{ form_field(form.source, tr_start=true) }}
+  {{ form_field(form.source_remark, tr_end=true) }}
+
+  {{ form_field(form.date, tr_start=true) }}
+    <td colspan="2">
+      <div class="control-group error">
+        <label class="control-label" id="date-error"></label>
+      </div>
+    </td>
+  </tr>
+  {% if kind == '1' %}
+    {{ form_field(form.code, tr_start=true, tr_end=true, colspan=4) }}
+    {{ form_field(form.code_text, tr_start=true, tr_end=true, colspan=4) }}
+  {% endif %}
+
+  {{ form_field(form.po, tr_start=true) }}
+  {{ form_field(form.price, tr_end=true) }}
+
+  {{ form_field(form.tn, tr_start=true) }}
+  {{ form_field(form.cn, tr_end=true) }}
+
+  {{ form_field(form.supplier, tr_start=true) }}
+  {{ form_field(form.mf, tr_end=true) }}
+
+  {{ form_field(form.owner, tr_start=true) }}
+  {{ form_field(form.model, tr_end=true) }}
+{% endmacro %}

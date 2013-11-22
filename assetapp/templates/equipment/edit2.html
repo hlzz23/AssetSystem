@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  {{ '.change_status'|t }}
+{% endblock %}
+
+{% block body %}
+  <p>
+    {{ primary_link(url_for('.index'), text='back', size='large') }}
+  </p>
+  {{ form_header(form, legend='.change_status') }}
+  {{ label_field('.flex_id', text=equipment.flex_id) }}
+  {{ label_field('sn', text=equipment.sn) }}
+  {{ label_field('.fixed_id', text=equipment.fixed_id or 'N/A') }}
+  {{ label_field('name', text=equipment.name) }}
+  {{ label_field('description', text=equipment.desc) }}
+  {{ form_field(form.location) }}
+  {% if not equipment.is_good %}
+    {{ form_field(form.is_good, required=1, radio_inline=true) }}
+  {% endif %}
+  {{ submit_field(submit='update', url=session.referrer or url_for('.index')) }}
+  {{ form_footer() }}
+{% endblock %}

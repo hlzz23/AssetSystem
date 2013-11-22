@@ -1,0 +1,34 @@
+track_no: "Track NO#"
+custom_no: "Customs NO#"
+po: "PO#"
+
+buy_date: Incoming Date
+workflow: Workflow
+incomings_list: Incoming List
+equipment_incoming: Equipment Incoming
+sparepart_incoming: Sparepart Incoming
+
+finished: Finished
+store_incomings: Store Incomings
+incoming_details: Incoming Details
+record_user: Record User
+
+rejected: Rejected
+confirmed: Confirmed
+refused_assign_flex_id: "refused to assign Flex ID#"
+assigned: "Assigned Flex ID#"
+wait_for_confirm: Wait For Confirm
+
+confirm: Confirm
+assign: Assign ID
+accept: Accept
+reject: Reject
+incoming_confirm: Incoming Confirm
+rejected_the_incoming: "You have rejected the incoming"
+accepted_the_incoming: "You have accepted the incoming"
+wait_for_assign_id: Wait For Assign ID
+
+assign_flex_id: Assign Flex ID
+reject_remark: Reject Remark
+
+required_if_reject: Please comment if reject

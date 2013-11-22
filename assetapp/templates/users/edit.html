@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+{% from 'users/_form.html' import render_form %}
+
+{% block title %}
+  {{ '.edit_user'|t }}
+{% endblock %}
+
+{% block body %}
+  <p>
+    {{ primary_link(url_for('.index'), text='back', size='large') }}
+  </p>
+  {{ render_form(form, request, legend='.edit_user', g=g, user=user, submit='update') }}
+{% endblock %}
+
+{% block js %}
+  $(".collapse").collapse('show');
+{% endblock %}

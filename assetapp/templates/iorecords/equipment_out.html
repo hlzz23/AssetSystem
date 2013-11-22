@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+{% from 'iorecords/_form.html' import general_form %}
+{% from 'iorecords/_helper.html' import show_desc %}
+
+{% block title %}
+  {{ '.equipment_out'|t }}
+{% endblock %}
+
+{% block body %}
+  <p>
+    {{ primary_link(url_for('.index', kind='out'), text='.outstore_list', size='large') }}
+  </p>
+  {{ form_header(form, legend='.equipment_out') }}
+  <table width="100%">
+    <tr><td colspan="4"><br /></td></tr>
+    {{ form_field(form.flex_id, tr_start=true, tr_end=true, colspan=4) }}
+
+    {{ form_field(form.to_project, tr_start=true) }}
+    {{ form_field(form.line, tr_end=true) }}
+
+    {{ form_field(form.to_where, tr_start=true, tr_end=true, colspan=4) }}
+
+    {{ general_form(form, kind='out') }}
+  </table>
+  {{ submit_field(submit='.out_store', url=url_for('.index', kind='out')) }}
+  {{ form_footer() }}
+
+{% endblock %}
+
+{% block js %}
+  {{ js_date(['date']) }}
+  {{ js_focus('flex_id') }}
+  {{ js_autocomplete(id='flex_id', kind='eout') }}
+  {{ js_timepicker() }}
+{% endblock %}

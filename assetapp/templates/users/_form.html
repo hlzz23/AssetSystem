@@ -1,0 +1,51 @@
+{% from 'helpers.html' import form_header, form_field, submit_field, form_footer,
+accordion_header, accordion_footer, label_field %}
+
+{% macro render_form(form, request, legend, g, user=none, submit='create') %}
+  {{ form_header(form, legend=legend) }}
+  <table width="100%">
+    <tr><td colspan="4"><br /></td></tr>
+    {% if user %}
+      {% if user.is_root %}
+        {{ label_field('role', text='users.root', colspan=4) }}
+      {% else %}
+        {{ label_field('role', user.permissions|join('<br />', attribute='group')|safe, colspan=4) }}
+      {% endif %}
+    {% endif %}
+    {{ form_field(form.login, tr_start=true) }}
+    {{ form_field(form.nick_name, tr_end=true) }}
+
+    {{ form_field(form.badge_id, tr_start=true) }}
+    {{ form_field(form.email, placeholder='xx.xx@cn.flextronics.com', tr_end=true) }}
+
+
+    {{ form_field(form.password, tr_start=true, placeholder='.leave_blank_without_change'|t) }}
+    {{ form_field(form.password_again, tr_end=true, placeholder='.leave_blank_without_change'|t) }}
+
+    {% if not user or (g.user.id != user.id and g.user.can_edit_user(user)) %}
+      {{ form_field(form.lang, tr_start=true) }}
+      {{ form_field(form.is_active, required=1, tr_end=true) }}
+
+      {{ form_field(form.phone, tr_start=true, tr_end=true, colspan=4) }}
+    {% else %}
+      {{ form_field(form.lang, tr_start=true) }}
+      {{ form_field(form.phone, tr_end=true) }}
+    {% endif %}
+
+    {{ form_field(form.gsm, tr_start=true) }}
+    {{ form_field(form.short_no, tr_end=true) }}
+
+    {{ form_field(form.send_buy, required=1, radio_inline=true, tr_start=true) }}
+    {{ form_field(form.send_io, required=1, radio_inline=true, tr_end=true) }}
+
+    {{ form_field(form.send_tf, required=1, radio_inline=true, tr_start=true) }}
+    {{ form_field(form.send_idle, required=1, radio_inline=true, tr_end=true) }}
+
+    {{ form_field(form.send_scrap, required=1, radio_inline=true, tr_start=true) }}
+    {{ form_field(form.send_alarm, required=1, radio_inline=true, tr_end=true) }}
+
+    {{ form_field(form.send_notify, required=1, radio_inline=true, tr_start=true, tr_end=true, colspan=4) }}
+    {{ submit_field(submit=submit|t, url=url_for('.index'), colspan=4) }}
+  </table>
+  {{ form_footer() }}
+{% endmacro %}

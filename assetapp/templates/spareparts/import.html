@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  {{ legend|t }}
+{% endblock %}
+
+{% block body %}
+  <p>
+    {{ primary_link(url_for('.select_import'), text='back', size='large') }}
+  </p>
+  {{ import_form(form, legend=legend, url=url_for('.index'), template=template, image=image, checked=checked, submit=submit) }}
+
+{% endblock %}

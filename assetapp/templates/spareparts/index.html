@@ -1,0 +1,104 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  {{ 'spareparts'|t }}
+{% endblock %}
+
+{% block body %}
+  <div class="alert alert-info">
+    {{ 'only_what_user_can_manage_this_page'|t(user='users.store_user'|t)|safe }}
+  </div>
+  <p>
+    {% if g.user.can_create_sparepart %}
+      {{ warning_link(url_for('.new'), text='.add_code', size='large') }}
+    {% endif %}
+    {{ primary_link(url_for('.index'), text='%s (%s)'|format('.all_store'|t, total_qty), size='large') }}
+    {{ success_link(url_for('.index', status='ok'), text='%s (%s)'|format('.ok_store'|t, ok_qty), size='large') }}
+    {{ danger_link(url_for('.index', status='danger'), text='%s (%s)'|format('.danger_store'|t, danger_qty), size='large') }}
+    {{ warning_link(url_for('.export'), text='export', size='large') }}
+    {{ success_link(url_for('.select_import'), text='.import_spareparts', size='large') }}
+  </p>
+  <p>
+    <form method="get">
+      <table width="100%">
+        <tr>
+          <th>{{ 'department'|t }}</th><td>{{ form.dp() }}</td>
+          <th>{{ 'project'|t }}</th><td>{{ form.pj() }}</td>
+          <th>{{ 'keyword'|t }}</th><td>{{ form.word(placeholder='.name_or_code'|t) }}</td>
+          <td colspan="2">
+            <button class="btn btn-primary" type="submit" id="query-btn">{{ 'query'|t }}</button>
+            <button class="btn btn-danger" type="reset" id="query-reset-btn">{{ 'reset'|t }}</button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </p>
+  {% if spareparts.count %}
+    {{ spareparts.pagination.info|safe }}
+    {{ spareparts.pagination.links|safe }}
+    {{ table_header(['picture', 'iohistory.keyid', 'project', '.qty', 'other']) }}
+    {% for sp in spareparts %}
+      <tr>
+        <td>{{ loop.index + spareparts.skip }}</td>
+        <td>{{ show_thumbnail(sp.image_link, url=url_for('.show', id=sp.id)) }}</td>
+        <td>
+          <a href="{{ url_for('.show', id=sp.id) }}" title="{{ 'details'|t }}">
+            {{ sp.code|hl_query(keyword or word)|safe }}
+            ($ {{ sp.unit_price }})
+          </a><br />
+          <a href="{{ url_for('.show', id=sp.id) }}" title="{{ 'details'|t }}">
+            {{ sp.name|hl_query(keyword or word)|safe }}
+          </a><br />
+          {% if sp.model %}
+            {{ sp.model|hl_query(keyword or word)|safe }}<br />
+          {% endif %}
+          ~~~~~~~~~~~~~~~~<br />
+          @ {{ sp.location }}
+        </td>
+        <td>
+          {% if 'department' in request.args %}
+            <a href="{{ url_for('.index', **(request.args|get_args)) }}">
+          {% else %}
+            <a href="{{ url_for('.index', department=sp.department, **(request.args|get_args)) }}">
+          {% endif %}
+          {{ sp.department }}</a><br />
+          {% if 'project' in request.args %}
+            <a href="{{ url_for('.index', **(request.args|get_args)) }}">
+          {% else %}
+            <a href="{{ url_for('.index', project=sp.project, **(request.args|get_args)) }}">
+          {% endif %}
+          {{ sp.project }}</a>
+        </td>
+        <td>
+          {{ '.inside'|t }}:
+          {{ span_badge(sp.store_good, 'success') }}
+          {{ span_badge(sp.store_bad, 'important') }}
+          <br /><br />
+          {{ '.outside'|t }}:
+          {{ span_badge(sp.out_good, 'success') }}
+          {{ span_badge(sp.out_bad, 'important') }}
+          <br /><br />
+          {{ 'spareparts.limit'|t }}:
+          {{ sp.min_store }} - {{ sp.max_store }}
+        </td>
+        <td>
+          {% if g.user.can_edit_sparepart(sp) %}
+            {{ edit_link(url_for('.edit', id=sp.id)) }}
+            {{ delete_link(url_for('.destroy', id=sp.id), id=sp.id) }}
+            {{ destroy_confirm(sp.id) }}
+          {% endif %}
+          {% if g.user.can_set_stock(sp) %}
+            {{ warning_link(url_for('.set_stock', id=sp.id), text='.set_stock', icon='wrench') }}
+          {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+    {{ table_footer() }}
+    {{ spareparts.pagination.links|safe }}
+  {% endif %}
+{% endblock %}
+
+{% block js %}
+  $('#navbar').scrollspy();
+  {{ query_reset_click(request, ids=('department', 'project', 'word')) }}
+{% endblock %}

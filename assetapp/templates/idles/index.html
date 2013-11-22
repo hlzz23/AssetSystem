@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  {{ '.idles_list'|t }}
+{% endblock %}
+
+{% block body %}
+  <div class="alert alert-info">
+    {{ 'only_what_user_can_manage_this_page'|t(user='users.asset_user'|t)|safe }}
+  </div>
+  <p>
+    {% if g.user.can_add_idle %}
+      {{ warning_link(url_for('.new'), text='.idle_equipment', size='large') }}
+    {% endif %}
+  </p>
+  {% if idles.count %}
+    {{ idles.pagination.info|safe }}
+    {{ idles.pagination.links|safe }}
+    {{ table_header(['name', '.equipment_information', 'handle_user', 'status', '.idle_date', 'last_update', 'other']) }}
+    {% for idle in idles %}
+      <tr>
+        <td>{{ loop.index + idles.skip }}</td>
+        <td>{{ idle.asset.name }}</td>
+        <td>{{ idle.asset.flex_id|hl_query(keyword)|safe }},
+          {{ idle.asset.sn|hl_query(keyword)|safe }},
+          {{ idle.asset.fixed_id|hl_query(keyword)|safe }}
+        </td>
+        <td>{{ idle.login }} - {{ idle.user }}</td>
+        <td>
+          {% for status in idle.status %}
+            {{ '.%s'|format(status)|t }},
+          {% endfor %}
+        </td>
+        <td>{{ idle.date }}</td>
+        <td>{{ idle.updated_at }}</td>
+        <td>
+          {% if idle.get_status == 'idle' and g.user.can_recall_idle(idle) %}
+            {{ danger_link(url_for('.recall', id=idle.id), text='.recall') }}
+          {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+    {{ table_footer() }}
+    {{ idles.pagination.links|safe }}
+  {% endif %}
+{% endblock %}

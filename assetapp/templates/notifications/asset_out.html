@@ -1,0 +1,84 @@
+{% extends 'notifications/base.html' %}
+{% from 'helpers.html' import table_header, table_footer %}
+
+{% block body %}
+  <p>
+    <h2>
+    {% if io.is_sparepart %}
+      {{ 'notifications.sparepart_was_out'|t }}
+    {% else %}
+      {{ 'notifications.equipment_was_out'|t }}
+    {% endif %}
+    </h2>
+  </p>
+  {{ table_header(['details'], use_index=false, colspan=2) }}
+  <tr>
+    <th>{{ 'buys.record_user'|t }}</th>
+    <td>{{ io.login }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'iohistory.io_date'|t }}</th><td>{{ io.date }} {{ io.time }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'iohistory.from_department'|t }}</th><td>{{ asset.department }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'iohistory.from_project'|t }}</th><td>{{ asset.project }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'iohistory.to_project'|t }}</th><td>{{ io.to_project }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'iohistory.to_where'|t }}</th><td>{{ io.to_where }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'iohistory.to_line'|t }}</th><td>{{ io.to_line }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'iohistory.from_user'|t }}</th><td>{{ io.from_user }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'iohistory.to_user'|t }}</th><td>{{ io.to_user }}</td>
+  </tr>
+  {% if io.is_sparepart %}
+    <tr>
+      <th>{{ 'spareparts.code'|t }}</th><td>{{ asset.code }}</td>
+    </tr>
+    <tr>
+      <th>{{ 'good_qty'|t }}</th><td>{{ io.good_qty }}</td>
+    </tr>
+    <tr>
+      <th>{{ 'bad_qty'|t }}</th><td>{{ io.bad_qty }}</td>
+    </tr>
+  {% else %}
+    <tr>
+      <th>{{ 'equipment.flex_id'|t }}</th><td>{{ asset.flex_id }}</td>
+    </tr>
+    <tr>
+      <th>{{ 'equipment.fixed_id'|t }}</th><td>{{ asset.fixed_id }}</td>
+    </tr>
+    <tr>
+      <th>{{ 'sn'|t }}</th><td>{{ asset.sn }}</td>
+    </tr>
+    <tr>
+      <th>{{ 'model'|t }}</th><td>{{ io.model }}</td>
+    </tr>
+    <tr>
+      <th>{{ 'status'|t }}</th>
+      <td>
+        {% if io.asset.is_good %}
+          {{ 'good'|t }}
+        {% else %}
+          {{ 'bad'|t }}
+        {% endif %}
+      </td>
+    </tr>
+  {% endif %}
+  <tr>
+    <th>{{ 'description'|t }}</th><td>{{ asset.desc }}</td>
+  </tr>
+  <tr>
+    <th>{{ 'remark'|t }}</th><td>{{ io.remark }}</td>
+  </tr>
+  {{ table_footer() }}
+{% endblock %}

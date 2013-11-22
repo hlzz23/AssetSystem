@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  {{ '.authorize'|t }}
+{% endblock %}
+
+{% block body %}
+  <p>
+    {{ primary_link(url_for('.index'), text='back', size='large') }}
+  </p>
+  {{ form_header(form, legend='.authorize') }}
+  {{ label_field('.permission_group', class='btn btn-small small-caps disabled', text=permission.group.title(), trans=false) }}
+  {{ label_field('role', text=('.%s'|format(permission.role))) }}
+  {{ label_field('department', text=permission.department, trans=false) }}
+  {{ label_field('projects', text=permission.projects|join(', '), trans=false) }}
+  {{ form_field(form.users, class=" multiselect", required=1) }}
+  {{ submit_field(submit='ok', url=url_for('.index')) }}
+  {{ form_footer() }}
+{% endblock %}
+
+{% block js %}
+  $(function(){
+    $('.multiselect').multiSelect(
+      {selectableHeader: "{{ 'selectable_header'|t|safe }}",
+        selectedHeader: "{{ 'selected_header'|t|safe }}",
+      });
+  });
+{% endblock %}

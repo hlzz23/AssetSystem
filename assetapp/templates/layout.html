@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>
+    {% block title %}{% endblock %} | {{ 'system_name'|t }}
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Flextronics Engineering Asset Management">
+    <meta name="author" content="FlexComputing TE">
+    <link href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/multi-select.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/jquery-ui/jquery-ui.custom.css') }}" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+        /*font-size: 110%;*/
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+    </style>
+    <link href="{{ url_for('static', filename='bootstrap/css/bootstrap-responsive.min.css') }}" rel="stylesheet">
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery-ui.custom.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.multi-select.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.MultiFile.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery-ui-timepicker-addon.js') }}"></script>
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="{{ url_for('static', filename='js/html5.js') }}"></script>
+    <![endif]-->
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  </head>
+  {# base #}
+  {% from 'helpers.html' import get_subnav, show_import_errors, show_permission_info, show_pictures, show_thumbnail, span_badge, span_label, label_success, label_important, label_info, badge_success, badge_important %}
+
+  {# form related #}
+  {% from 'helpers.html' import form_header, form_field, form_footer, import_form, label_field, show_import_info, submit_field, export_form %}
+
+  {# links related #}
+  {% from 'helpers.html' import render_link, render_btn, primary_link, danger_link, info_link, destroy_confirm, warning_link, success_link, inverse_link, edit_link, delete_link, lock_link %}
+
+  {# table related #}
+  {% from 'helpers.html' import table_header, table_footer, render_td %}
+
+  {# js related #}
+  {% from 'helpers.html' import js_focus, js_popover, js_date, js_code, js_show_desc, js_check_date, export_js, js_role_select, js_upload, query_reset_click, js_autocomplete, js_timepicker %}
+
+  <body class="{{ g.css_id or 'home' }}">
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="{{ url_for('home.index') }}">{{ 'system_name'|t }}</a>
+          <div class="btn-group pull-right">
+            {% if g.user %}
+              <a href="#" class="btn btn-primary">
+                <i class="icon-user icon-white"></i>
+                {{ g.user and g.user.nick_name or 'not_logged_in'|t }}
+              </a>
+              <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="{{ url_for('users.edit', id=g.user.id) }}">{{ 'users.profile'|t }}</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <a href="{{ url_for('home.logout') }}">{{ 'logout'|t }}</a>
+                </li>
+              </ul>
+            {% else %}
+              <a class="btn btn-primary" href="{{ url_for('home.login') }}">{{ 'login'|t }}</a>
+              <a class="btn btn-danger" href="{{ url_for('home.signup') }}">{{ 'signup'|t }}</a>
+            {% endif %}
+          </div>
+          {% if keyword is defined %}
+            <form class="navbar-form pull-left">
+              <input id="kind" name="kind" type="hidden" value="{{ kind }}">
+              <input type="text" class="search-query" placeholder="{{ 'enter_something_to_search'|t }}" id="keyword" name="keyword" value="{{ keyword or '' }}">
+              <button class="btn" type="submit" id="search-btn">{{ 'search'|t }}</button>
+              <button class="btn btn-danger" type="reset" id="reset-btn">{{ 'reset'|t }}</button>
+            </form>
+            {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="subnav">
+      <ul class="nav nav-pills">
+        {{ get_subnav(g, 'iohistory', url_for('iohistory.index'), 'store_in_out') }}
+        {{ get_subnav(g, 'instore', url_for('iohistory.index', kind='in'), 'in_store') }}
+        {{ get_subnav(g, 'outstore', url_for('iohistory.index', kind='out'), 'out_store') }}
+        {{ get_subnav(g, 'buys', url_for('buys.index'), 'incomings') }}
+        {{ get_subnav(g, 'equipment', url_for('equipment.index'), 'equipment') }}
+        {{ get_subnav(g, 'spareparts', url_for('spareparts.index'), 'spareparts') }}
+        {{ get_subnav(g, 'transfers', url_for('transfers.index'), 'transfers') }}
+        {{ get_subnav(g, 'scraps', url_for('scraps.index'), 'scraps') }}
+        {{ get_subnav(g, 'idles', url_for('idles.index'), 'idle') }}
+        {{ get_subnav(g, 'projects', url_for('projects.index'), 'projects') }}
+        {{ get_subnav(g, 'users', url_for('users.index'), 'users') }}
+
+      </ul>
+    </div>
+    <br /><br />
+    <div class="container-fluid">
+      {% if 'msie' in request.user_agent.browser %}
+        <div class="alert">
+          {{ 'you_are_using_msie'|t(href=url_for('static', filename='Chrome.7z'))|safe }}
+        </div>
+      {% endif %}
+      {%- for category, message in get_flashed_messages(with_categories=true) %}
+      <div class="alert alert-{{ category }}">
+        <a class="close" data-dismiss="alert">&times;</a>
+        <strong>{{ message }}</strong>
+      </div>
+      {%- endfor %}
+      {% block body %}{% endblock %}
+      <a id="gotop" href="#"><span>▲</span></a>
+      <hr>
+      <footer>
+        &nbsp;A Flask Application &copy; FlexComputing TE 2012
+        <a href="{{ url_for('home.about') }}">{{ 'about'|t }}</a> |
+        <a href="{{ url_for('home.change_lang') }}">{{ 'change_language'|t }}</a>
+      </footer>
+    </div>
+    <script type="text/javascript">
+      //只要窗口滚动,就触发下面代码
+      $(window).scroll(function(){
+        //获取滚动后的高度
+        var scrollt = document.documentElement.scrollTop + document.body.scrollTop;
+        if(scrollt > 200){
+          //判断滚动后高度超过200px,就显示
+          $("#gotop").fadeIn(400); //淡出
+        }else{
+          //如果返回或者没有超过,就淡入.必须加上stop()
+          //停止之前动画,否则会出现闪动
+          $("#gotop").stop().fadeOut(400);
+        }
+      });
+      $("#gotop").click(function(){
+        //当点击标签的时候,使用animate在200毫秒的时间内,滚到顶部
+        $("html,body").animate({scrollTop:"0px"}, 200);
+      });
+
+      {% if keyword is defined %}
+        $('#keyword').hover(function(){
+          $(this).focus();
+        });
+        $('#reset-btn').click(function() {
+          $('#keyword').val('');
+          $('#keyword').focus();
+          window.location.href = "{{ request.path }}";
+          return false;
+        });
+      {% endif %}
+      {% block js %}{% endblock %}
+    </script>
+  </body>
+</html>

@@ -1,0 +1,62 @@
+{% from 'helpers.html' import form_header, form_footer, form_field, submit_field, label_field, upload_form, js_delete_file %}
+
+{% macro render_form(form, legend, submit='add', can_edit_qty=true, sp=none) %}
+  {{ form_header(form, legend=legend, multipart=true) }}
+  <table width="100%" border="0">
+    <tr><td colspan="4"><br /></td></tr>
+    {{ form_field(form.department, tr_start=true) }}
+    {{ form_field(form.project, tr_end=true) }}
+
+    {{ form_field(form.name, tr_start=true) }}
+    {{ form_field(form.code, tr_end=true) }}
+
+    {{ form_field(form.location, tr_start=true) }}
+    {{ form_field(form.pn, tr_end=true) }}
+
+    {{ form_field(form.model, tr_start=true) }}
+    {{ form_field(form.prod_model, tr_end=true) }}
+
+    {% if can_edit_qty %}
+      {{ form_field(form.store_good, tr_start=true) }}
+      {{ form_field(form.store_bad, tr_end=true) }}
+
+      {{ form_field(form.out_good, tr_start=true) }}
+      {{ form_field(form.out_bad, tr_end=true) }}
+    {% else %}
+      {{ label_field('.store_good', text=form.store_good.data|string, tr_start=true) }}
+      {{ label_field('.store_bad', text=form.store_bad.data|string, tr_end=true) }}
+
+      {{ label_field('.out_good', text=form.out_good.data|string, tr_start=true) }}
+      {{ label_field('.out_bad', text=form.out_bad.data|string, tr_end=true) }}
+    {% endif %}
+
+    {{ form_field(form.unit_price, tr_start=true) }}
+    {{ form_field(form.vendor, tr_end=true) }}
+
+    {{ form_field(form.desc, tr_start=true, tr_end=true, colspan=4) }}
+    {{ form_field(form.remark, tr_start=true, tr_end=true, colspan=4) }}
+
+    {{ upload_form(tr_start=true, tr_end=true, colspan=4) }}
+    {% if sp and sp.uploads.count %}
+      <tr>
+        <td colspan="4"></td>
+      </tr>
+      <tr>
+        <td></td>
+        {% for im in sp.uploads %}
+          <td>
+            <a href="{{ url_for('static', filename=im.link) }}" id="{{ im.id }}" target="_blank">
+              <img src="{{ url_for('static', filename=im.link) }}" alt="{{ im.name }}" width="260" height="180" />
+            </a>
+            <a href="#pictures" id="del-{{ im.id }}" class="btn btn-danger">
+              {{ 'delete'|t }}
+            </a>
+            {{ js_delete_file(im.id) }}
+          </td>
+        {% endfor %}
+      </tr>
+    {% endif %}
+  </table>
+  {{ submit_field(submit=submit, url=url_for('.index')) }}
+  {{ form_footer() }}
+{% endmacro %}

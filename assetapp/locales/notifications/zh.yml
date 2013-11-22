@@ -1,0 +1,24 @@
+accepted_the_incoming: 货仓收货已确认
+rejected_the_incoming: 货仓收货被拒收
+incoming_arrived: 新物品到达仓库
+please_click_to_confirm: 请点击签收
+
+assigned_the_equipment: 指定了伟创力编号
+rejected_assign_the_equipment: 拒绝指定伟创力编号
+
+equipment_was_in: 设备入仓
+equipment_was_out: 设备出仓
+
+sparepart_was_in: 备品入仓
+sparepart_was_out: 备品出仓
+
+equipment_transfer_in: 设备转入
+equipment_transfer_out: 设备转出
+
+sparepart_transfer_in: 备品转入
+sparepart_transfer_out: 备品转出
+
+asset_was_idled: 设备进入闲置状态
+asset_was_recalled: 设备闲置状态被清除
+
+equipment_was_scraped: 设备被报废

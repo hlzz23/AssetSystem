@@ -1,0 +1,25 @@
+permission_group: 权限组
+permission_name: 权限名称
+resource: 资源
+operations: 操作
+status: 状态
+add_permission: 添加权限
+edit_permission: 编辑权限
+asset_user: 资产用户
+asset_leader: 资产管理员
+project_leader: 项目负责人
+cal_user: 校验房用户
+store_user: 仓库用户
+
+active: 激活
+disabled: 禁用
+department_text: 部门
+is_active: 是否激活
+enter_department_manually: 手动输入部门
+or_enter_department_manually: 或手动输入部门
+all_permissions: 所有权限
+authorize: 授权
+permission: 权限
+authorization_details: 授权详情
+user_list: 用户列表
+department_projects: 部门 | 项目
